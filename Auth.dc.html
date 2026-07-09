@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Content:wght@400;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; background:#FFFFFF; }
+  h1,h2,h3,h4,h5,h6 { font-family: 'Content', Georgia, serif; }
+  a { color:#1A0206; text-decoration:none; }
+  ::selection { background:#F3C9D0; }
+</style>
+</helmet>
+
+<div style="--brand:{{ brand }}; min-height:100vh; background:#FFFFFF; color:#1A0206;">
+
+  <!-- ===== AUTH SPLIT (login / signup / forgot) ===== -->
+  <sc-if value="{{ isSplit }}" hint-placeholder-val="{{ true }}">
+  <div style="display:flex; min-height:100vh;">
+    <!-- Brand panel -->
+    <div style="flex:0 0 44%; background:linear-gradient(155deg,#1A0206,#A00823 55%,#D40A2E); color:#fff; padding:48px; display:flex; flex-direction:column; position:relative; overflow:hidden;">
+      <div style="position:absolute; top:-90px; right:-70px; width:320px; height:320px; border-radius:50%; background:rgba(255,255,255,0.1);"></div>
+      <div style="position:absolute; bottom:-110px; left:-60px; width:300px; height:300px; border-radius:50%; background:rgba(172,209,253,0.18);"></div>
+      <a href="Website%20-%20Home.dc.html" style="display:flex; align-items:center; gap:11px; position:relative; color:#fff;">
+        <img src="talentflow-logo-white.svg" alt="TalentFlow" style="height:32px; width:auto; display:block;" />
+      </a>
+      <div style="margin:auto 0; position:relative;">
+        <h1 style="font-size:38px; font-weight:800; letter-spacing:-0.02em; line-height:1.15; margin:0 0 18px; max-width:400px;">Your next role, powered by AI.</h1>
+        <p style="font-size:16px; line-height:1.6; color:rgba(255,255,255,0.85); margin:0 0 36px; max-width:380px;">Join 100k+ candidates using tailored AI interviews to get hired faster and fairer.</p>
+        <div style="display:flex; align-items:center; gap:14px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.14); border-radius:16px; padding:16px 18px; max-width:380px; backdrop-filter:blur(6px);">
+          <img src="https://i.pravatar.cc/64?img=32" style="width:44px; height:44px; border-radius:12px; object-fit:cover;" />
+          <div style="line-height:1.5;"><p style="font-size:13.5px; margin:0; color:#fff;">"Got an offer in under two weeks - the AI interview actually felt fair."</p><span style="font-size:12px; color:rgba(255,255,255,0.7);">Maya C. · Product Designer</span></div>
+        </div>
+      </div>
+      <div style="position:relative; display:flex; gap:28px;">
+        <div><div style="font-size:24px; font-weight:800;">25k+</div><div style="font-size:12.5px; color:rgba(255,255,255,0.7);">Open jobs</div></div>
+        <div><div style="font-size:24px; font-weight:800;">92%</div><div style="font-size:12.5px; color:rgba(255,255,255,0.7);">Success rate</div></div>
+      </div>
+    </div>
+
+    <!-- Form panel -->
+    <div style="flex:1; display:flex; align-items:center; justify-content:center; padding:40px;">
+      <div style="width:100%; max-width:400px;">
+
+        <!-- LOGIN -->
+        <sc-if value="{{ isLogin }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <h2 style="font-size:28px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px;">Welcome back</h2>
+          <p style="font-size:15px; color:#7C7C8E; margin:0 0 28px;">Log in to continue your job search.</p>
+          <label style="display:block; font-size:13px; font-weight:600; color:#474753; margin-bottom:7px;">Email</label>
+          <input type="text" placeholder="you@email.com" style="width:100%; height:48px; border:1.5px solid #DBDBE5; border-radius:12px; padding:0 14px; font:400 15px Inter; outline:none; margin-bottom:18px;" style-focus="border-color:#D40A2E; box-shadow:0 0 0 4px rgba(212,10,46,0.15);" />
+          <label style="display:block; font-size:13px; font-weight:600; color:#474753; margin-bottom:7px;">Password</label>
+          <input type="password" placeholder="••••••••" style="width:100%; height:48px; border:1.5px solid #DBDBE5; border-radius:12px; padding:0 14px; font:400 15px Inter; outline:none; margin-bottom:14px;" style-focus="border-color:#D40A2E; box-shadow:0 0 0 4px rgba(212,10,46,0.15);" />
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:22px;">
+            <label style="display:flex; align-items:center; gap:8px; font-size:13.5px; color:#33000A; cursor:pointer;"><span style="width:18px; height:18px; border-radius:5px; border:1.5px solid #C4C4D2; background:#fff;"></span>Remember me</label>
+            <a href="#" onClick="{{ toForgot }}" style="font-size:13.5px; font-weight:600; cursor:pointer;">Forgot password?</a>
+          </div>
+          <button onClick="{{ doLogin }}" style="width:100%; height:50px; border-radius:13px; border:none; background:var(--brand,#D40A2E); color:#fff; font:700 15px Inter; cursor:pointer;">Log in</button>
+          <div style="display:flex; align-items:center; gap:14px; margin:22px 0; color:#C4C4D2; font-size:12.5px;"><span style="flex:1; height:1px; background:#ECECF1;"></span>or continue with<span style="flex:1; height:1px; background:#ECECF1;"></span></div>
+          <div style="display:flex; gap:12px;">
+            <button style="flex:1; height:48px; border-radius:12px; border:1.5px solid #E6E6EC; background:#fff; font:600 14px Inter; color:#33000A; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:9px;"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.5 12.2c0-.7-.1-1.4-.2-2H12v3.9h5.9a5 5 0 01-2.2 3.3v2.7h3.6c2.1-2 3.2-4.9 3.2-7.9z"/><path fill="#34A853" d="M12 23c2.9 0 5.3-1 7.1-2.6l-3.6-2.7c-1 .7-2.2 1-3.5 1-2.7 0-5-1.8-5.8-4.3H2.5v2.8A11 11 0 0012 23z"/><path fill="#FBBC05" d="M6.2 14.4a6.6 6.6 0 010-4.2V7.4H2.5a11 11 0 000 9.8z"/><path fill="#EA4335" d="M12 5.5c1.5 0 2.9.5 4 1.5l3-3A11 11 0 002.5 7.4l3.7 2.8C7 7.3 9.3 5.5 12 5.5z"/></svg>Google</button>
+            <button style="flex:1; height:48px; border-radius:12px; border:1.5px solid #E6E6EC; background:#fff; font:600 14px Inter; color:#33000A; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:9px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="#0A66C2"><path d="M4 4h4v16H4zM6 2a2 2 0 110 4 2 2 0 010-4zM10 8h4v2c.7-1 2-2 4-2 3 0 4 2 4 5v7h-4v-6c0-1.5-.5-2.5-2-2.5s-2 1-2 2.5v6h-4z"/></svg>LinkedIn</button>
+          </div>
+          <p style="text-align:center; font-size:14px; color:#7C7C8E; margin:26px 0 0;">Don't have an account? <a href="#" onClick="{{ toSignup }}" style="font-weight:700; cursor:pointer;">Sign up</a></p>
+        </div>
+        </sc-if>
+
+        <!-- SIGNUP -->
+        <sc-if value="{{ isSignup }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <h2 style="font-size:28px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px;">Create your account</h2>
+          <p style="font-size:15px; color:#7C7C8E; margin:0 0 28px;">Free forever for job seekers.</p>
+          <label style="display:block; font-size:13px; font-weight:600; color:#474753; margin-bottom:7px;">Email</label>
+          <input type="text" placeholder="you@email.com" style="width:100%; height:48px; border:1.5px solid #DBDBE5; border-radius:12px; padding:0 14px; font:400 15px Inter; outline:none; margin-bottom:18px;" style-focus="border-color:#D40A2E; box-shadow:0 0 0 4px rgba(212,10,46,0.15);" />
+          <label style="display:block; font-size:13px; font-weight:600; color:#474753; margin-bottom:7px;">Password</label>
+          <input type="password" placeholder="Create a password" style="width:100%; height:48px; border:1.5px solid #DBDBE5; border-radius:12px; padding:0 14px; font:400 15px Inter; outline:none; margin-bottom:18px;" style-focus="border-color:#D40A2E; box-shadow:0 0 0 4px rgba(212,10,46,0.15);" />
+          <label style="display:block; font-size:13px; font-weight:600; color:#474753; margin-bottom:7px;">Confirm password</label>
+          <input type="password" placeholder="Re-enter password" style="width:100%; height:48px; border:1.5px solid #DBDBE5; border-radius:12px; padding:0 14px; font:400 15px Inter; outline:none; margin-bottom:18px;" style-focus="border-color:#D40A2E; box-shadow:0 0 0 4px rgba(212,10,46,0.15);" />
+          <label style="display:flex; align-items:flex-start; gap:9px; font-size:13px; color:#5E5E6E; cursor:pointer; margin-bottom:22px; line-height:1.5;"><span style="width:18px; height:18px; border-radius:5px; border:1.5px solid #C4C4D2; background:#fff; flex-shrink:0; margin-top:1px;"></span><span>I agree to the <a href="#" style="font-weight:600;">Terms</a> and <a href="#" style="font-weight:600;">Privacy Policy</a>.</span></label>
+          <button onClick="{{ doSignup }}" style="width:100%; height:50px; border-radius:13px; border:none; background:var(--brand,#D40A2E); color:#fff; font:700 15px Inter; cursor:pointer;">Create account</button>
+          <div style="display:flex; align-items:center; gap:14px; margin:22px 0; color:#C4C4D2; font-size:12.5px;"><span style="flex:1; height:1px; background:#ECECF1;"></span>or sign up with<span style="flex:1; height:1px; background:#ECECF1;"></span></div>
+          <div style="display:flex; gap:12px;">
+            <button style="flex:1; height:48px; border-radius:12px; border:1.5px solid #E6E6EC; background:#fff; font:600 14px Inter; color:#33000A; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:9px;"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.5 12.2c0-.7-.1-1.4-.2-2H12v3.9h5.9a5 5 0 01-2.2 3.3v2.7h3.6c2.1-2 3.2-4.9 3.2-7.9z"/><path fill="#34A853" d="M12 23c2.9 0 5.3-1 7.1-2.6l-3.6-2.7c-1 .7-2.2 1-3.5 1-2.7 0-5-1.8-5.8-4.3H2.5v2.8A11 11 0 0012 23z"/><path fill="#FBBC05" d="M6.2 14.4a6.6 6.6 0 010-4.2V7.4H2.5a11 11 0 000 9.8z"/><path fill="#EA4335" d="M12 5.5c1.5 0 2.9.5 4 1.5l3-3A11 11 0 002.5 7.4l3.7 2.8C7 7.3 9.3 5.5 12 5.5z"/></svg>Google</button>
+            <button style="flex:1; height:48px; border-radius:12px; border:1.5px solid #E6E6EC; background:#fff; font:600 14px Inter; color:#33000A; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:9px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="#0A66C2"><path d="M4 4h4v16H4zM6 2a2 2 0 110 4 2 2 0 010-4zM10 8h4v2c.7-1 2-2 4-2 3 0 4 2 4 5v7h-4v-6c0-1.5-.5-2.5-2-2.5s-2 1-2 2.5v6h-4z"/></svg>LinkedIn</button>
+          </div>
+          <p style="text-align:center; font-size:14px; color:#7C7C8E; margin:26px 0 0;">Already have an account? <a href="#" onClick="{{ toLogin }}" style="font-weight:700; cursor:pointer;">Log in</a></p>
+        </div>
+        </sc-if>
+
+        <!-- FORGOT -->
+        <sc-if value="{{ isForgot }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <a href="#" onClick="{{ toLogin }}" style="display:inline-flex; align-items:center; gap:6px; font-size:13.5px; font-weight:600; color:#7C7C8E; margin-bottom:24px; cursor:pointer;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>Back to login</a>
+
+          <sc-if value="{{ fgEmail }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <h2 style="font-size:28px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px;">Reset password</h2>
+            <p style="font-size:15px; color:#7C7C8E; margin:0 0 28px;">Enter your email and we'll send a verification code.</p>
+            <label style="display:block; font-size:13px; font-weight:600; color:#474753; margin-bottom:7px;">Email</label>
+            <input type="text" placeholder="you@email.com" style="width:100%; height:48px; border:1.5px solid #DBDBE5; border-radius:12px; padding:0 14px; font:400 15px Inter; outline:none; margin-bottom:22px;" style-focus="border-color:#D40A2E; box-shadow:0 0 0 4px rgba(212,10,46,0.15);" />
+            <button onClick="{{ fgToCode }}" style="width:100%; height:50px; border-radius:13px; border:none; background:var(--brand,#D40A2E); color:#fff; font:700 15px Inter; cursor:pointer;">Send code</button>
+          </div>
+          </sc-if>
+
+          <sc-if value="{{ fgCode }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <h2 style="font-size:28px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px;">Enter code</h2>
+            <p style="font-size:15px; color:#7C7C8E; margin:0 0 28px;">We sent a 6-digit code to your email.</p>
+            <div style="display:flex; gap:10px; margin-bottom:22px;">
+              <input maxlength="1" value="4" style="width:100%; height:56px; text-align:center; border:1.5px solid #D40A2E; border-radius:12px; font:700 22px Inter; outline:none; box-shadow:0 0 0 4px rgba(212,10,46,0.15);" />
+              <input maxlength="1" value="2" style="width:100%; height:56px; text-align:center; border:1.5px solid #DBDBE5; border-radius:12px; font:700 22px Inter; outline:none;" />
+              <input maxlength="1" style="width:100%; height:56px; text-align:center; border:1.5px solid #DBDBE5; border-radius:12px; font:700 22px Inter; outline:none;" />
+              <input maxlength="1" style="width:100%; height:56px; text-align:center; border:1.5px solid #DBDBE5; border-radius:12px; font:700 22px Inter; outline:none;" />
+              <input maxlength="1" style="width:100%; height:56px; text-align:center; border:1.5px solid #DBDBE5; border-radius:12px; font:700 22px Inter; outline:none;" />
+              <input maxlength="1" style="width:100%; height:56px; text-align:center; border:1.5px solid #DBDBE5; border-radius:12px; font:700 22px Inter; outline:none;" />
+            </div>
+            <button onClick="{{ fgToReset }}" style="width:100%; height:50px; border-radius:13px; border:none; background:var(--brand,#D40A2E); color:#fff; font:700 15px Inter; cursor:pointer;">Verify</button>
+            <p style="text-align:center; font-size:13.5px; color:#9E9EB0; margin:18px 0 0;">Didn't get it? <a href="#" style="font-weight:600;">Resend</a></p>
+          </div>
+          </sc-if>
+
+          <sc-if value="{{ fgReset }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <h2 style="font-size:28px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px;">New password</h2>
+            <p style="font-size:15px; color:#7C7C8E; margin:0 0 28px;">Choose a strong password.</p>
+            <label style="display:block; font-size:13px; font-weight:600; color:#474753; margin-bottom:7px;">New password</label>
+            <input type="password" placeholder="••••••••" style="width:100%; height:48px; border:1.5px solid #DBDBE5; border-radius:12px; padding:0 14px; font:400 15px Inter; outline:none; margin-bottom:18px;" style-focus="border-color:#D40A2E; box-shadow:0 0 0 4px rgba(212,10,46,0.15);" />
+            <label style="display:block; font-size:13px; font-weight:600; color:#474753; margin-bottom:7px;">Confirm password</label>
+            <input type="password" placeholder="••••••••" style="width:100%; height:48px; border:1.5px solid #DBDBE5; border-radius:12px; padding:0 14px; font:400 15px Inter; outline:none; margin-bottom:22px;" style-focus="border-color:#D40A2E; box-shadow:0 0 0 4px rgba(212,10,46,0.15);" />
+            <button onClick="{{ fgToDone }}" style="width:100%; height:50px; border-radius:13px; border:none; background:var(--brand,#D40A2E); color:#fff; font:700 15px Inter; cursor:pointer;">Reset password</button>
+          </div>
+          </sc-if>
+
+          <sc-if value="{{ fgDone }}" hint-placeholder-val="{{ false }}">
+          <div style="text-align:center;">
+            <div style="width:72px; height:72px; border-radius:22px; background:#E6F6EF; display:grid; place-items:center; margin:0 auto 22px;"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#22A06B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <h2 style="font-size:26px; font-weight:800; letter-spacing:-0.02em; margin:0 0 8px;">Password reset</h2>
+            <p style="font-size:15px; color:#7C7C8E; margin:0 0 28px;">Your password has been updated. You can now log in.</p>
+            <button onClick="{{ toLogin }}" style="width:100%; height:50px; border-radius:13px; border:none; background:var(--brand,#D40A2E); color:#fff; font:700 15px Inter; cursor:pointer;">Back to login</button>
+          </div>
+          </sc-if>
+        </div>
+        </sc-if>
+
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ===== COMPLETE PROFILE WIZARD ===== -->
+  <sc-if value="{{ isComplete }}" hint-placeholder-val="{{ false }}">
+  <div style="min-height:100vh; display:flex; flex-direction:column;">
+    <header style="padding:18px 32px; border-bottom:1px solid #ECECF1; display:flex; align-items:center; justify-content:space-between; background:#fff;">
+      <div style="display:flex; align-items:center; gap:11px;"><img src="talentflow-logo.svg" alt="TalentFlow" style="height:28px; width:auto; display:block;" /></div>
+      <button onClick="{{ doSkip }}" style="height:38px; padding:0 16px; border-radius:11px; border:1px solid #E6E6EC; background:#fff; font:600 13.5px Inter; color:#7C7C8E; cursor:pointer;">Skip for now →</button>
+    </header>
+
+    <div style="flex:1; display:flex; align-items:flex-start; justify-content:center; padding:40px 32px;">
+      <div style="width:100%; max-width:640px;">
+        <!-- Stepper -->
+        <div style="display:flex; align-items:flex-start; margin-bottom:30px;">
+          <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+            <div style="flex:1; display:flex; flex-direction:column; align-items:center; position:relative;">
+              <sc-if value="{{ s.line }}" hint-placeholder-val="{{ true }}"><span style="position:absolute; top:14px; left:50%; width:100%; height:2px; background:{{ s.lineBg }};"></span></sc-if>
+              <span style="position:relative; z-index:1; width:30px; height:30px; border-radius:50%; background:{{ s.bg }}; color:{{ s.fg }}; display:grid; place-items:center; font-size:13px; font-weight:800; border:2px solid {{ s.border }};">{{ s.mark }}</span>
+              <span style="margin-top:8px; font-size:12px; font-weight:600; color:{{ s.labelColor }}; text-align:center;">{{ s.label }}</span>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="background:#fff; border:1px solid #ECECF1; border-radius:20px; padding:32px; box-shadow:0 1px 3px rgba(33,34,45,0.05);">
+          <!-- STEP 0: Personal -->
+          <sc-if value="{{ step0 }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <h2 style="font-size:22px; font-weight:800; letter-spacing:-0.01em; margin:0 0 6px;">Personal information</h2>
+            <p style="font-size:14.5px; color:#7C7C8E; margin:0 0 24px;">Tell us a bit about you.</p>
+            <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
+              <div style="width:76px; height:76px; border-radius:20px; border:2px dashed #C4C4D2; display:grid; place-items:center; color:#9E9EB0; flex-shrink:0;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
+              <div><div style="font-size:14px; font-weight:700;">Profile photo</div><div style="font-size:12.5px; color:#9E9EB0; margin-bottom:8px;">PNG or JPG, up to 5MB</div><button style="height:34px; padding:0 14px; border-radius:9px; border:1px solid #E6E6EC; background:#fff; font:600 12.5px Inter; color:#33000A; cursor:pointer;">Upload</button></div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+              <div><label style="display:block; font-size:13px; font-weight:600; color:#474753; margin-bottom:7px;">Full name</label><input value="Jordan Avery" style="width:100%; height:46px; border:1.5px solid #DBDBE5; border-radius:11px; padding:0 13px; font:400 14.5px Inter; outline:none;" style-focus="border-color:#D40A2E; box-shadow:0 0 0 4px rgba(212,10,46,0.15);" /></div>
+              <div><label style="display:block; font-size:13px; font-weight:600; color:#474753; margin-bottom:7px;">Phone</label><input placeholder="+1 555 000 0000" style="width:100%; height:46px; border:1.5px solid #DBDBE5; border-radius:11px; padding:0 13px; font:400 14.5px Inter; outline:none;" style-focus="border-color:#D40A2E; box-shadow:0 0 0 4px rgba(212,10,46,0.15);" /></div>
+              <div><label style="display:block; font-size:13px; font-weight:600; color:#474753; margin-bottom:7px;">Date of birth</label><input placeholder="MM / DD / YYYY" style="width:100%; height:46px; border:1.5px solid #DBDBE5; border-radius:11px; padding:0 13px; font:400 14.5px Inter; outline:none;" style-focus="border-color:#D40A2E; box-shadow:0 0 0 4px rgba(212,10,46,0.15);" /></div>
+              <div><label style="display:block; font-size:13px; font-weight:600; color:#474753; margin-bottom:7px;">Location</label><input placeholder="City, Country" style="width:100%; height:46px; border:1.5px solid #DBDBE5; border-radius:11px; padding:0 13px; font:400 14.5px Inter; outline:none;" style-focus="border-color:#D40A2E; box-shadow:0 0 0 4px rgba(212,10,46,0.15);" /></div>
+            </div>
+          </div>
+          </sc-if>
+
+          <!-- STEP 1: Professional -->
+          <sc-if value="{{ step1 }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <h2 style="font-size:22px; font-weight:800; letter-spacing:-0.01em; margin:0 0 6px;">Professional details</h2>
+            <p style="font-size:14.5px; color:#7C7C8E; margin:0 0 24px;">This powers your AI job matches.</p>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+              <div><label style="display:block; font-size:13px; font-weight:600; color:#474753; margin-bottom:7px;">Preferred job title</label><input placeholder="e.g. Product Designer" style="width:100%; height:46px; border:1.5px solid #DBDBE5; border-radius:11px; padding:0 13px; font:400 14.5px Inter; outline:none;" style-focus="border-color:#D40A2E; box-shadow:0 0 0 4px rgba(212,10,46,0.15);" /></div>
+              <div><label style="display:block; font-size:13px; font-weight:600; color:#474753; margin-bottom:7px;">Years of experience</label><input placeholder="e.g. 5" style="width:100%; height:46px; border:1.5px solid #DBDBE5; border-radius:11px; padding:0 13px; font:400 14.5px Inter; outline:none;" style-focus="border-color:#D40A2E; box-shadow:0 0 0 4px rgba(212,10,46,0.15);" /></div>
+              <div><label style="display:block; font-size:13px; font-weight:600; color:#474753; margin-bottom:7px;">Industry</label><input placeholder="e.g. Technology" style="width:100%; height:46px; border:1.5px solid #DBDBE5; border-radius:11px; padding:0 13px; font:400 14.5px Inter; outline:none;" style-focus="border-color:#D40A2E; box-shadow:0 0 0 4px rgba(212,10,46,0.15);" /></div>
+              <div><label style="display:block; font-size:13px; font-weight:600; color:#474753; margin-bottom:7px;">Salary expectation</label><input placeholder="e.g. $120k" style="width:100%; height:46px; border:1.5px solid #DBDBE5; border-radius:11px; padding:0 13px; font:400 14.5px Inter; outline:none;" style-focus="border-color:#D40A2E; box-shadow:0 0 0 4px rgba(212,10,46,0.15);" /></div>
+            </div>
+            <label style="display:block; font-size:13px; font-weight:600; color:#474753; margin:16px 0 7px;">Employment status</label>
+            <div style="display:flex; gap:10px;">
+              <span style="padding:9px 16px; border-radius:10px; border:1.5px solid #D40A2E; background:#FCEFF1; color:#1A0206; font-size:13.5px; font-weight:600; cursor:pointer;">Open to work</span>
+              <span style="padding:9px 16px; border-radius:10px; border:1.5px solid #E6E6EC; background:#fff; color:#5E5E6E; font-size:13.5px; font-weight:600; cursor:pointer;">Employed</span>
+              <span style="padding:9px 16px; border-radius:10px; border:1.5px solid #E6E6EC; background:#fff; color:#5E5E6E; font-size:13.5px; font-weight:600; cursor:pointer;">Freelancing</span>
+            </div>
+          </div>
+          </sc-if>
+
+          <!-- STEP 2: Skills -->
+          <sc-if value="{{ step2 }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <h2 style="font-size:22px; font-weight:800; letter-spacing:-0.01em; margin:0 0 6px;">Your skills</h2>
+            <p style="font-size:14.5px; color:#7C7C8E; margin:0 0 24px;">Add the skills you want to be matched on.</p>
+            <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;">
+              <span style="display:inline-flex; align-items:center; gap:7px; padding:7px 13px; border-radius:999px; background:#FCEFF1; color:#1A0206; font-size:13px; font-weight:600;">Figma <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></span>
+              <span style="display:inline-flex; align-items:center; gap:7px; padding:7px 13px; border-radius:999px; background:#FCEFF1; color:#1A0206; font-size:13px; font-weight:600;">Design Systems <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></span>
+              <span style="display:inline-flex; align-items:center; gap:7px; padding:7px 13px; border-radius:999px; background:#FCEFF1; color:#1A0206; font-size:13px; font-weight:600;">Prototyping <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></span>
+            </div>
+            <input placeholder="Type a skill and press enter…" style="width:100%; height:46px; border:1.5px solid #DBDBE5; border-radius:11px; padding:0 13px; font:400 14.5px Inter; outline:none; margin-bottom:18px;" style-focus="border-color:#D40A2E; box-shadow:0 0 0 4px rgba(212,10,46,0.15);" />
+            <div style="font-size:12.5px; font-weight:700; color:#9E9EB0; margin-bottom:10px;">SUGGESTED</div>
+            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+              <span style="padding:7px 13px; border-radius:999px; border:1px dashed #C4C4D2; color:#5E5E6E; font-size:13px; font-weight:600; cursor:pointer;">+ User Research</span>
+              <span style="padding:7px 13px; border-radius:999px; border:1px dashed #C4C4D2; color:#5E5E6E; font-size:13px; font-weight:600; cursor:pointer;">+ Wireframing</span>
+              <span style="padding:7px 13px; border-radius:999px; border:1px dashed #C4C4D2; color:#5E5E6E; font-size:13px; font-weight:600; cursor:pointer;">+ Accessibility</span>
+              <span style="padding:7px 13px; border-radius:999px; border:1px dashed #C4C4D2; color:#5E5E6E; font-size:13px; font-weight:600; cursor:pointer;">+ Motion</span>
+            </div>
+          </div>
+          </sc-if>
+
+          <!-- STEP 3: Preferences -->
+          <sc-if value="{{ step3 }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <h2 style="font-size:22px; font-weight:800; letter-spacing:-0.01em; margin:0 0 6px;">Job preferences</h2>
+            <p style="font-size:14.5px; color:#7C7C8E; margin:0 0 24px;">We'll prioritize roles that fit these.</p>
+            <label style="display:block; font-size:13px; font-weight:600; color:#474753; margin-bottom:10px;">Work mode</label>
+            <div style="display:flex; gap:10px; margin-bottom:20px;">
+              <span style="padding:9px 16px; border-radius:10px; border:1.5px solid #D40A2E; background:#FCEFF1; color:#1A0206; font-size:13.5px; font-weight:600; cursor:pointer;">Remote</span>
+              <span style="padding:9px 16px; border-radius:10px; border:1.5px solid #D40A2E; background:#FCEFF1; color:#1A0206; font-size:13.5px; font-weight:600; cursor:pointer;">Hybrid</span>
+              <span style="padding:9px 16px; border-radius:10px; border:1.5px solid #E6E6EC; background:#fff; color:#5E5E6E; font-size:13.5px; font-weight:600; cursor:pointer;">On-site</span>
+            </div>
+            <label style="display:block; font-size:13px; font-weight:600; color:#474753; margin-bottom:10px;">Employment type</label>
+            <div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:20px;">
+              <span style="padding:9px 16px; border-radius:10px; border:1.5px solid #D40A2E; background:#FCEFF1; color:#1A0206; font-size:13.5px; font-weight:600; cursor:pointer;">Full time</span>
+              <span style="padding:9px 16px; border-radius:10px; border:1.5px solid #E6E6EC; background:#fff; color:#5E5E6E; font-size:13.5px; font-weight:600; cursor:pointer;">Contract</span>
+              <span style="padding:9px 16px; border-radius:10px; border:1.5px solid #E6E6EC; background:#fff; color:#5E5E6E; font-size:13.5px; font-weight:600; cursor:pointer;">Part time</span>
+            </div>
+            <label style="display:block; font-size:13px; font-weight:600; color:#474753; margin-bottom:7px;">Preferred locations</label>
+            <input placeholder="e.g. Remote, San Francisco" style="width:100%; height:46px; border:1.5px solid #DBDBE5; border-radius:11px; padding:0 13px; font:400 14.5px Inter; outline:none;" style-focus="border-color:#D40A2E; box-shadow:0 0 0 4px rgba(212,10,46,0.15);" />
+          </div>
+          </sc-if>
+
+          <!-- Wizard footer -->
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-top:28px; padding-top:22px; border-top:1px solid #F2F2F6;">
+            <button onClick="{{ wizBack }}" style="height:46px; padding:0 20px; border-radius:12px; border:1px solid #E6E6EC; background:#fff; font:600 14px Inter; color:{{ backColor }}; cursor:pointer;">Back</button>
+            <span style="font-size:13px; color:#9E9EB0;">{{ stepLabel }}</span>
+            <button onClick="{{ wizNext }}" style="height:46px; padding:0 24px; border-radius:12px; border:none; background:var(--brand,#D40A2E); color:#fff; font:700 14px Inter; cursor:pointer;">{{ nextLabel }}</button>
+          </div>
+        </div>
+        <p style="text-align:center; font-size:13px; color:#9E9EB0; margin:18px 0 0;">A complete profile gets <b style="color:#1A0206;">3× more</b> matches. You can finish this later from your dashboard.</p>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;accentColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#D40A2E&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Theme&quot;, &quot;options&quot;: [&quot;#D40A2E&quot;, &quot;#4680EC&quot;, &quot;#22A06B&quot;, &quot;#1A0206&quot;] }
+}">
+class Component extends DCLogic {
+  state = { screen: 'login', forgot: 'email', step: 0 };
+
+  componentDidMount() {
+    try {
+      const h = (window.location.hash || '').replace('#', '');
+      if (['login', 'signup', 'forgot', 'complete'].includes(h)) this.setState({ screen: h });
+    } catch (e) {}
+  }
+
+  go(screen) { this.setState({ screen }); }
+  finish(status) {
+    try { localStorage.setItem('hn_profile_status', status); } catch (e) {}
+    window.location.href = 'Candidate%20Dashboard.dc.html';
+  }
+
+  renderVals() {
+    const s = this.state;
+    const brand = this.props.accentColor ?? '#D40A2E';
+    const step = s.step;
+
+    const stepLabels = ['Personal', 'Professional', 'Skills', 'Preferences'];
+    const steps = [0, 1, 2, 3].map((i) => {
+      const done = i < step, current = i === step;
+      return {
+        mark: done ? '✓' : String(i + 1),
+        label: stepLabels[i],
+        labelColor: (done || current) ? '#1A0206' : '#9E9EB0',
+        bg: done ? brand : (current ? '#FCEFF1' : '#fff'),
+        fg: done ? '#fff' : (current ? '#1A0206' : '#9E9EB0'),
+        border: (done || current) ? brand : '#E0E0E8',
+        line: i < 3,
+        lineBg: i < step ? brand : '#ECECF1'
+      };
+    });
+
+    return {
+      brand,
+      isSplit: s.screen === 'login' || s.screen === 'signup' || s.screen === 'forgot',
+      isLogin: s.screen === 'login',
+      isSignup: s.screen === 'signup',
+      isForgot: s.screen === 'forgot',
+      isComplete: s.screen === 'complete',
+      fgEmail: s.forgot === 'email',
+      fgCode: s.forgot === 'code',
+      fgReset: s.forgot === 'reset',
+      fgDone: s.forgot === 'done',
+      toLogin: (e) => { if (e) e.preventDefault(); this.setState({ screen: 'login', forgot: 'email' }); },
+      toSignup: (e) => { if (e) e.preventDefault(); this.go('signup'); },
+      toForgot: (e) => { if (e) e.preventDefault(); this.setState({ screen: 'forgot', forgot: 'email' }); },
+      doLogin: () => this.finish('complete'),
+      doSignup: () => this.setState({ screen: 'complete', step: 0 }),
+      fgToCode: () => this.setState({ forgot: 'code' }),
+      fgToReset: () => this.setState({ forgot: 'reset' }),
+      fgToDone: () => this.setState({ forgot: 'done' }),
+      steps,
+      step0: step === 0, step1: step === 1, step2: step === 2, step3: step === 3,
+      stepLabel: 'Step ' + (step + 1) + ' of 4',
+      nextLabel: step === 3 ? 'Finish & go to dashboard' : 'Continue',
+      backColor: step === 0 ? '#C4C4D2' : '#33000A',
+      wizBack: () => this.setState({ step: Math.max(0, step - 1) }),
+      wizNext: () => { if (step === 3) this.finish('complete'); else this.setState({ step: step + 1 }); },
+      doSkip: () => this.finish('skipped')
+    };
+  }
+}
+</script>
+</body>
+</html>

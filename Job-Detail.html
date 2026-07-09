@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>TalentFlow AI — Senior Product Designer at Aperture Labs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Content:wght@400;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#D40A2E; --primary-600:#A00823; --primary-50:#FCEFF1; --violet:#F5C400;
+  --ink:#1A0206; --ink-2:#33000A; --muted:#5E5E6E; --faint:#9E9EB0;
+  --line:#E6E6EC; --line-2:#EFEFF3; --bg:#F2F2F6; --card:#FFFFFF;
+  --success:#22A06B; --success-600:#157A50; --success-bg:#E6F6EF;
+  --warn:#E8963A; --warn-bg:#FDF1E6; --danger:#E05656; --danger-bg:#FBE7E7;
+  --r:16px; --r-lg:24px; --r-sm:10px; --r-xs:8px;
+  --sh:0 1px 2px rgba(26,2,6,.04),0 8px 24px rgba(26,2,6,.06);
+  --sh-lg:0 24px 60px rgba(26,2,6,.16);
+  --maxw:1160px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55}
+h1,h2,h3,h4{margin:0;letter-spacing:-.02em;line-height:1.15;font-family:'Content',Georgia,serif}
+p{margin:0}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+.mono{font-variant-numeric:tabular-nums}
+img{max-width:100%}
+
+/* ---------- top bar ---------- */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(247,247,250,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid #E8E8EF}
+.topbar-in{max-width:var(--maxw);margin:0 auto;padding:12px 28px;display:flex;align-items:center;gap:20px}
+.nav-mid{display:flex;align-items:center;gap:2px;background:#F2F2F6;border-radius:999px;padding:5px;margin:0 auto}
+.nav-mid a{padding:8px 16px;border-radius:999px;color:var(--muted);font-size:13.5px;font-weight:600}
+.nav-mid a.on{background:#fff;color:var(--ink);box-shadow:0 1px 2px rgba(33,34,45,.08)}
+.tb-right{display:flex;align-items:center;gap:10px}
+.tb-link{font-size:13.5px;font-weight:700;color:var(--ink-2);padding:9px 14px;border-radius:999px}
+.tb-link:hover{background:#fff}
+.tb-cta{display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:999px;font-size:13.5px;font-weight:700;background:var(--primary);color:#fff}
+.tb-cta:hover{filter:brightness(1.06)}
+.avatar{width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:0 2px 8px rgba(26,2,6,.12)}
+.hamburger{display:none;width:40px;height:40px;border-radius:11px;border:1px solid var(--line);background:#fff;place-items:center;color:var(--ink-2)}
+
+/* ---------- shell ---------- */
+.breadcrumb{max-width:var(--maxw);margin:0 auto;padding:20px 28px 4px;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--faint);flex-wrap:wrap}
+.breadcrumb a:hover{color:var(--primary-600)}
+.breadcrumb .sep{color:#CFCFD9}
+.breadcrumb .cur{color:var(--ink-2)}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:18px 28px 60px;display:grid;grid-template-columns:minmax(0,1fr) 372px;gap:28px;align-items:start}
+.content{min-width:0;display:flex;flex-direction:column;gap:20px}
+.aside{position:sticky;top:88px;display:flex;flex-direction:column;gap:16px}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh)}
+.pad{padding:26px}
+.pad-lg{padding:30px}
+@media(max-width:640px){.pad{padding:20px}.pad-lg{padding:22px}}
+
+.sect-eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--primary);margin-bottom:12px}
+.sect-eyebrow::before{content:"";width:16px;height:2px;border-radius:2px;background:var(--primary)}
+.sect-title{font-size:22px;font-weight:800}
+.prose{font-size:15px;color:var(--ink-2);line-height:1.75}
+.prose p+p{margin-top:14px}
+
+/* ---------- hero ---------- */
+.hero-top{display:flex;gap:18px;align-items:flex-start}
+.co-logo{width:64px;height:64px;border-radius:18px;display:grid;place-items:center;font-size:26px;font-weight:800;flex-shrink:0;box-shadow:0 8px 20px rgba(26,2,6,.14)}
+.hero-h{flex:1;min-width:0}
+.status-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;padding:5px 11px;border-radius:999px;letter-spacing:.01em}
+.pill.open{background:var(--success-bg);color:var(--success-600)}
+.pill.soon{background:var(--warn-bg);color:#B26A16}
+.pill.closed{background:var(--danger-bg);color:var(--danger)}
+.pill.ghost{background:var(--bg);color:var(--muted)}
+.pill .d{width:7px;height:7px;border-radius:50%;background:currentColor}
+.pill.open .d{animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+h1.job-title{font-size:32px;font-weight:800;letter-spacing:-.03em;line-height:1.1;margin:2px 0 8px}
+.co-line{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:14.5px;color:var(--muted);font-weight:600}
+.co-line b{color:var(--ink-2);font-weight:700}
+.co-line .dot{width:3px;height:3px;border-radius:50%;background:#CFCFD9}
+
+.meta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.meta-chip{display:inline-flex;align-items:center;gap:9px;background:var(--bg);border-radius:12px;padding:9px 13px;font-size:13px;font-weight:600;color:var(--ink-2)}
+.meta-chip svg{color:var(--primary);flex-shrink:0}
+.meta-chip span{color:var(--faint);font-weight:600}
+
+.hero-actions{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
+.icon-btn{width:50px;height:50px;border-radius:14px;border:1.5px solid var(--line);background:#fff;display:grid;place-items:center;color:var(--ink-2);flex-shrink:0;transition:.15s;position:relative}
+.icon-btn:hover{background:var(--bg);border-color:#D5D5DE}
+.icon-btn.saved{background:var(--primary-50);border-color:#F5CBD3;color:var(--primary)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;height:50px;padding:0 26px;border-radius:14px;border:none;font-size:15px;font-weight:700;transition:transform .05s,filter .15s,background .15s;white-space:nowrap}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--primary);color:#fff;box-shadow:0 8px 20px rgba(212,10,46,.28)}
+.btn-primary:hover{filter:brightness(1.06)}
+.btn-ghost{background:#fff;border:1.5px solid var(--line);color:var(--ink-2)}
+.btn-ghost:hover{background:var(--bg)}
+.btn-soft{background:var(--primary-50);color:var(--primary-600)}
+.btn-block{width:100%}
+.btn-sm{height:40px;padding:0 16px;font-size:13.5px;border-radius:11px}
+
+/* notice */
+.notice{display:flex;gap:14px;padding:16px 18px;border-radius:16px;font-size:13.5px;line-height:1.55}
+.notice.info{background:var(--primary-50);color:var(--primary-600);border:1px solid #F5CBD3}
+.notice.warn{background:var(--warn-bg);color:#B26A16;border:1px solid #FDE9C8}
+.notice .ni{flex-shrink:0;width:38px;height:38px;border-radius:11px;background:#fff;display:grid;place-items:center;color:var(--primary)}
+.notice.warn .ni{color:var(--warn)}
+.notice b{font-weight:800}
+.notice .nt{font-size:14px;font-weight:800;margin-bottom:3px;color:inherit}
+
+/* quick overview */
+.ov-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-2);border-radius:16px;overflow:hidden;border:1px solid var(--line-2)}
+.ov-cell{background:#fff;padding:16px 18px}
+.ov-cell .l{display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+.ov-cell .l svg{color:var(--primary)}
+.ov-cell .v{font-size:15px;font-weight:700;color:var(--ink)}
+.ov-cell .v.sm{font-size:13.5px}
+
+/* responsibilities / lists */
+.tick-list{display:flex;flex-direction:column;gap:14px;margin-top:4px}
+.tick{display:flex;gap:13px;align-items:flex-start;font-size:14.5px;color:var(--ink-2);line-height:1.55}
+.tick .ck{width:24px;height:24px;border-radius:8px;background:var(--primary-50);color:var(--primary);display:grid;place-items:center;flex-shrink:0;margin-top:1px}
+.tick.plus .ck{background:var(--bg);color:var(--faint)}
+
+/* qualification groups */
+.qual-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.qual-box{background:var(--bg);border-radius:16px;padding:18px}
+.qual-box .qh{display:flex;align-items:center;gap:10px;font-size:13.5px;font-weight:800;margin-bottom:12px}
+.qual-box .qh .qi{width:32px;height:32px;border-radius:10px;background:#fff;color:var(--primary);display:grid;place-items:center;flex-shrink:0}
+.qual-box ul{margin:0;padding-left:2px;list-style:none;display:flex;flex-direction:column;gap:9px}
+.qual-box li{position:relative;padding-left:18px;font-size:13.5px;color:var(--ink-2);line-height:1.5}
+.qual-box li::before{content:"";position:absolute;left:2px;top:8px;width:6px;height:6px;border-radius:50%;background:var(--primary)}
+
+/* skills */
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.skill{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;padding:9px 15px;border-radius:11px;background:var(--bg);color:var(--ink-2);border:1.5px solid transparent}
+.skill.key{background:var(--primary-50);color:var(--primary-600);border-color:#F5CBD3}
+.skill.key .star{color:var(--primary)}
+.skill.pref{background:#fff;border-color:var(--line);color:var(--muted)}
+.legend{display:flex;gap:16px;margin-top:14px;font-size:12px;color:var(--faint);font-weight:600;flex-wrap:wrap}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:6px;vertical-align:-1px}
+
+/* benefits */
+.perk-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.perk{display:flex;align-items:center;gap:13px;padding:15px 16px;border:1px solid var(--line);border-radius:14px;transition:.15s}
+.perk:hover{border-color:#D5D5DE;background:#FCFCFD}
+.perk .pi{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--violet));color:#fff;display:grid;place-items:center;flex-shrink:0}
+.perk .pt{font-size:14px;font-weight:700}
+.perk .ps{font-size:12px;color:var(--muted)}
+
+/* AI interview section */
+.ai-card{background:linear-gradient(150deg,#1A0206,#33000A 55%,#5c0616);color:#fff;border:none;position:relative;overflow:hidden}
+.ai-card::after{content:"";position:absolute;top:-120px;right:-90px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(245,196,0,.22),transparent 60%)}
+.ai-card .sect-eyebrow{color:var(--violet)}
+.ai-card .sect-eyebrow::before{background:var(--violet)}
+.ai-card .sect-title{color:#fff}
+.ai-list{display:flex;flex-direction:column;gap:14px;margin-top:18px;position:relative}
+.ai-item{display:flex;gap:13px;align-items:flex-start;font-size:14px;color:rgba(255,255,255,.9);line-height:1.55}
+.ai-item .ck{width:24px;height:24px;border-radius:8px;background:rgba(245,196,0,.18);color:var(--violet);display:grid;place-items:center;flex-shrink:0;margin-top:1px}
+.flow{display:flex;align-items:stretch;gap:10px;margin-top:24px;position:relative}
+.flow-step{flex:1;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px 14px;text-align:center;backdrop-filter:blur(4px)}
+.flow-step .fi{width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.1);display:grid;place-items:center;margin:0 auto 10px;color:var(--violet)}
+.flow-step .ft{font-size:13px;font-weight:800}
+.flow-step .fs{font-size:11px;color:rgba(255,255,255,.6);margin-top:2px}
+.flow-arrow{display:grid;place-items:center;color:rgba(255,255,255,.4);flex-shrink:0}
+
+/* hiring process timeline */
+.tl{position:relative;padding-left:4px}
+.tl .step{display:flex;gap:16px;padding-bottom:24px;position:relative}
+.tl .step:last-child{padding-bottom:0}
+.tl .step .nod{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;z-index:1;background:var(--primary-50);border:2px solid var(--primary-50);color:var(--primary);font-weight:800;font-size:14px}
+.tl .step .bar{position:absolute;left:17px;top:36px;bottom:0;width:2px;background:var(--line)}
+.tl .step:last-child .bar{display:none}
+.tl .step .info{padding-top:5px}
+.tl .step .info .t{font-size:15px;font-weight:800}
+.tl .step .info .d{font-size:13px;color:var(--muted);margin-top:2px}
+
+/* similar jobs */
+.sim-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.sim{border:1px solid var(--line);border-radius:16px;padding:18px;transition:.15s;background:#fff;display:flex;flex-direction:column;gap:12px}
+.sim:hover{border-color:#D5D5DE;box-shadow:var(--sh);transform:translateY(-2px)}
+.sim .sh{display:flex;align-items:center;gap:12px}
+.sim .sl{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:16px;font-weight:800;flex-shrink:0}
+.sim .st{font-size:15px;font-weight:800;line-height:1.2}
+.sim .sc{font-size:12.5px;color:var(--muted)}
+.sim .match{margin-left:auto;font-size:11.5px;font-weight:800;padding:4px 9px;border-radius:999px;background:linear-gradient(120deg,var(--primary-600),var(--primary));color:#fff;flex-shrink:0}
+.sim .smeta{display:flex;flex-wrap:wrap;gap:6px}
+.sim .smeta span{font-size:11.5px;font-weight:600;color:var(--muted);background:var(--bg);padding:4px 9px;border-radius:8px}
+.sim .sfoot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:4px}
+.sim .view{font-size:13px;font-weight:800;color:var(--primary);display:inline-flex;align-items:center;gap:5px}
+
+/* FAQ */
+.faq{border-bottom:1px solid var(--line-2)}
+.faq:last-child{border-bottom:none}
+.faq .fq{display:flex;align-items:center;gap:12px;padding:17px 0;cursor:pointer;font-size:15px;font-weight:700}
+.faq .fq .qmark{width:26px;height:26px;border-radius:8px;background:var(--primary-50);color:var(--primary);display:grid;place-items:center;font-size:13px;font-weight:800;flex-shrink:0}
+.faq .fq .caret{margin-left:auto;color:var(--faint);transition:transform .2s;flex-shrink:0}
+.faq.open .fq .caret{transform:rotate(180deg)}
+.faq .fa{display:none;padding:0 0 18px 38px;font-size:14px;color:var(--muted);line-height:1.65}
+.faq.open .fa{display:block}
+
+/* ---------- sticky apply card ---------- */
+.apply-card .ac-price{font-size:26px;font-weight:800;letter-spacing:-.02em}
+.apply-card .ac-price span{font-size:14px;font-weight:600;color:var(--muted)}
+.apply-card .ac-title{font-size:15px;font-weight:800;margin-top:2px}
+.apply-card .ac-sub{font-size:13px;color:var(--muted);margin-bottom:16px}
+.ac-mini{display:flex;flex-direction:column;gap:0;margin:16px 0}
+.ac-mini .kv{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--line-2);font-size:13px}
+.ac-mini .kv:last-child{border-bottom:none}
+.ac-mini .kv .k{color:var(--muted);font-weight:600;display:flex;align-items:center;gap:8px}
+.ac-mini .kv .k svg{color:var(--faint)}
+.ac-mini .kv .v{font-weight:700}
+.deadline-strip{display:flex;align-items:center;gap:9px;background:var(--warn-bg);color:#B26A16;border-radius:12px;padding:10px 13px;font-size:12.5px;font-weight:700;margin-bottom:14px}
+.ac-note{font-size:11.5px;color:var(--faint);text-align:center;margin-top:12px;line-height:1.5}
+.progress-mini{margin-top:14px;background:var(--bg);border-radius:12px;padding:12px 14px}
+.progress-mini .pmt{display:flex;justify-content:space-between;font-size:12px;font-weight:700;margin-bottom:8px}
+.progress-mini .pmt span{color:var(--success-600)}
+.pmbar{height:7px;border-radius:999px;background:var(--line);overflow:hidden}
+.pmbar i{display:block;height:100%;background:linear-gradient(90deg,var(--success),#3DBE86);border-radius:999px}
+
+/* ---------- mobile sticky bar ---------- */
+.mobile-bar{position:fixed;left:0;right:0;bottom:0;z-index:70;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:12px 18px;display:none;align-items:center;gap:14px;box-shadow:0 -8px 24px rgba(26,2,6,.08)}
+.mobile-bar .mb-info .mp{font-size:16px;font-weight:800}
+.mobile-bar .mb-info .ms{font-size:12px;color:var(--muted)}
+.mobile-bar .btn{flex:1;margin-left:auto;max-width:220px}
+
+/* ---------- footer ---------- */
+footer{background:#1A0206;color:#DBDBE5;margin-top:20px}
+.foot-in{max-width:var(--maxw);margin:0 auto;padding:40px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.foot-in .fc{font-size:13px;color:#9E9EB0}
+.foot-links{display:flex;gap:22px;font-size:13px;font-weight:600}
+.foot-links a{color:#9E9EB0}
+.foot-links a:hover{color:#fff}
+
+/* ---------- error / empty states ---------- */
+.state-wrap{max-width:var(--maxw);margin:0 auto;padding:40px 28px 80px;display:none}
+.state-wrap.on{display:block}
+.state-card{max-width:520px;margin:20px auto;text-align:center;padding:44px 34px}
+.state-card .si{width:74px;height:74px;border-radius:22px;display:grid;place-items:center;margin:0 auto 20px}
+.state-card .si.danger{background:var(--danger-bg);color:var(--danger)}
+.state-card .si.warn{background:var(--warn-bg);color:var(--warn)}
+.state-card .si.muted{background:var(--bg);color:var(--faint)}
+.state-card h2{font-size:23px;font-weight:800}
+.state-card p{font-size:14.5px;color:var(--muted);margin:10px auto 24px;max-width:40ch}
+.state-card .row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* ---------- modal ---------- */
+.overlay{position:fixed;inset:0;background:rgba(26,2,6,.55);backdrop-filter:blur(4px);z-index:100;display:none;align-items:center;justify-content:center;padding:24px;animation:fade .2s}
+.overlay.on{display:flex}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.modal{background:#fff;border-radius:var(--r-lg);max-width:480px;width:100%;box-shadow:var(--sh-lg);overflow:hidden;animation:pop .25s cubic-bezier(.2,.8,.3,1)}
+@keyframes pop{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
+.modal .mh{padding:28px 28px 0;text-align:center}
+.modal .mi{width:64px;height:64px;border-radius:18px;display:grid;place-items:center;margin:0 auto 16px}
+.modal .mi.info{background:var(--primary-50);color:var(--primary)}
+.modal .mi.warn{background:var(--warn-bg);color:var(--warn)}
+.modal .mi.ai{background:linear-gradient(135deg,var(--primary),var(--violet));color:#fff}
+.modal h3{font-size:21px;font-weight:800}
+.modal .mp{font-size:14px;color:var(--muted);margin-top:8px;line-height:1.6}
+.modal .mb{padding:22px 28px 28px}
+.modal .steps{background:var(--bg);border-radius:14px;padding:16px 18px;margin-bottom:18px;text-align:left}
+.modal .steps .si2{display:flex;gap:12px;align-items:flex-start;font-size:13px;color:var(--ink-2);padding:7px 0}
+.modal .steps .si2 .n{width:22px;height:22px;border-radius:7px;background:#fff;color:var(--primary);font-size:11px;font-weight:800;display:grid;place-items:center;flex-shrink:0}
+.modal .steps .si2 b{font-weight:800}
+.modal .mrow{display:flex;gap:12px}
+.modal .mrow .btn{flex:1}
+
+/* ---------- states menu (demo control) ---------- */
+.states-fab{position:fixed;right:20px;bottom:20px;z-index:80;height:46px;padding:0 18px;border-radius:999px;background:var(--ink);color:#fff;border:none;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:8px;box-shadow:var(--sh-lg)}
+@media(max-width:900px){.states-fab{bottom:86px}}
+.states-menu{position:fixed;right:20px;bottom:78px;z-index:81;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--sh-lg);padding:8px;width:250px;display:none;max-height:70vh;overflow:auto}
+@media(max-width:900px){.states-menu{bottom:142px}}
+.states-menu.on{display:block}
+.states-menu .grp{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);padding:10px 10px 5px}
+.states-menu button{display:flex;width:100%;align-items:center;gap:10px;padding:9px 10px;border-radius:10px;border:none;background:none;font-size:13px;font-weight:600;color:var(--ink-2);text-align:left}
+.states-menu button:hover{background:var(--bg)}
+.states-menu button.on{background:var(--primary-50);color:var(--primary-600)}
+.states-menu button .sd{width:8px;height:8px;border-radius:50%;background:var(--faint);flex-shrink:0}
+.states-menu button.on .sd{background:var(--primary)}
+
+/* ---------- share popover ---------- */
+.share-pop{position:absolute;top:58px;right:0;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--sh-lg);padding:8px;width:210px;display:none;z-index:40}
+.share-pop.on{display:block}
+.share-pop button{display:flex;width:100%;align-items:center;gap:11px;padding:10px;border-radius:10px;border:none;background:none;font-size:13.5px;font-weight:600;color:var(--ink-2);text-align:left}
+.share-pop button:hover{background:var(--bg)}
+.share-pop button svg{color:var(--muted)}
+
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:13px 20px;border-radius:999px;font-size:13.5px;font-weight:700;z-index:120;opacity:0;pointer-events:none;transition:.3s;display:flex;align-items:center;gap:9px}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ---------- responsive ---------- */
+@media(max-width:1000px){
+  .wrap{grid-template-columns:1fr;padding-bottom:100px}
+  .aside{position:static;order:-1}
+  .apply-card{display:none}          /* replaced by inline summary + mobile bar */
+  .aside .co-snap{display:block}
+  .mobile-bar{display:flex}
+  .ov-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:760px){
+  .nav-mid{display:none}
+  .flow{flex-direction:column}
+  .flow-arrow{transform:rotate(90deg)}
+  .qual-grid,.sim-grid,.perk-grid{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .topbar-in{padding:12px 18px}
+  .breadcrumb,.wrap,.state-wrap,.foot-in{padding-left:18px;padding-right:18px}
+  h1.job-title{font-size:26px}
+  .hero-top{flex-direction:column;gap:14px}
+  .ov-grid{grid-template-columns:1fr}
+  .hero-actions .btn-primary{flex:1}
+  .tb-right .tb-link{display:none}
+  .hamburger{display:grid}
+}
+@media(min-width:1001px){.co-snap{display:none}}
+</style>
+</head>
+<body>
+
+<!-- ===================== TOP BAR ===================== -->
+<header class="topbar">
+  <div class="topbar-in">
+    <a href="Website%20-%20Home.dc.html" aria-label="TalentFlow home"><img src="talentflow-logo.svg" alt="TalentFlow" style="height:30px;width:auto;display:block"/></a>
+    <nav class="nav-mid">
+      <a href="Website%20-%20Home.dc.html">Home</a>
+      <a href="Candidate%20Dashboard.dc.html" class="on">Find Jobs</a>
+      <a href="#hiring">How It Works</a>
+      <a href="#ai">AI Interview</a>
+    </nav>
+    <div class="tb-right">
+      <a href="Candidate%20Dashboard.dc.html" class="tb-link">Dashboard</a>
+      <img class="avatar" src="https://i.pravatar.cc/80?img=32" alt="You"/>
+      <button class="hamburger" aria-label="Menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== BREADCRUMB ===================== -->
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="Website%20-%20Home.dc.html">Home</a>
+  <span class="sep">›</span>
+  <a href="Candidate%20Dashboard.dc.html">Find Jobs</a>
+  <span class="sep">›</span>
+  <span class="cur">Job Details</span>
+</nav>
+
+<!-- ===================== MAIN (default / open state) ===================== -->
+<main class="wrap" id="mainWrap">
+  <div class="content">
+
+    <!-- HERO -->
+    <section class="card pad-lg" id="top">
+      <div class="hero-top">
+        <div class="co-logo" style="background:#1A0206;color:#fff">A</div>
+        <div class="hero-h">
+          <div class="status-row">
+            <span class="pill open" id="statusPill"><span class="d"></span>Open</span>
+            <span class="pill ghost"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Posted 2 days ago</span>
+            <span class="pill ghost">3 open positions</span>
+          </div>
+          <h1 class="job-title">Senior Product Designer</h1>
+          <div class="co-line">
+            <b>Aperture Labs</b>
+            <span class="dot"></span>
+            <span>Design</span>
+            <span class="dot"></span>
+            <span>Full-time</span>
+            <span class="dot"></span>
+            <span>Remote</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="meta-row">
+        <span class="meta-chip"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg><span>Type</span>&nbsp;Full-time</span>
+        <span class="meta-chip"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg><span>Level</span>&nbsp;Senior · 5+ yrs</span>
+        <span class="meta-chip"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Salary</span>&nbsp;$130k–$160k</span>
+        <span class="meta-chip"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Location</span>&nbsp;Remote · Global</span>
+        <span class="meta-chip"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span>Apply by</span>&nbsp;Aug 5, 2026</span>
+      </div>
+
+      <div class="hero-actions">
+        <button class="btn btn-primary" onclick="applyNow()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Apply Now</button>
+        <button class="icon-btn" id="saveBtn" onclick="toggleSave()" aria-label="Save job" title="Save job"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button>
+        <div style="position:relative">
+          <button class="icon-btn" onclick="toggleShare(event)" aria-label="Share job" title="Share job"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg></button>
+          <div class="share-pop" id="sharePop">
+            <button onclick="copyLink()"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>Copy link</button>
+            <button onclick="toast('Opening LinkedIn…')"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>Share on LinkedIn</button>
+            <button onclick="toast('Opening email…')"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>Email a friend</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI INTERVIEW NOTICE -->
+    <div class="notice info">
+      <span class="ni"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/></svg></span>
+      <div>
+        <div class="nt">This position requires a one-time AI video interview</div>
+        Your application includes a <b>unique AI-generated video interview</b> based on this job description. It uses your <b>camera, microphone, and screen sharing</b>, and <b>cannot be retaken</b> once completed. Review the process below before you begin.
+      </div>
+    </div>
+
+    <!-- QUICK OVERVIEW -->
+    <section class="card pad">
+      <div class="sect-eyebrow">Quick overview</div>
+      <h2 class="sect-title" style="margin-bottom:18px">At a glance</h2>
+      <div class="ov-grid">
+        <div class="ov-cell"><div class="l">Employment</div><div class="v">Full-time</div></div>
+        <div class="ov-cell"><div class="l">Experience</div><div class="v">Senior · 5+ yrs</div></div>
+        <div class="ov-cell"><div class="l">Salary</div><div class="v">$130k–$160k</div></div>
+        <div class="ov-cell"><div class="l">Work mode</div><div class="v">Remote</div></div>
+        <div class="ov-cell"><div class="l">Department</div><div class="v">Design</div></div>
+        <div class="ov-cell"><div class="l">Education</div><div class="v sm">Bachelor's degree</div></div>
+        <div class="ov-cell"><div class="l">Apply by</div><div class="v sm">Aug 5, 2026</div></div>
+        <div class="ov-cell"><div class="l">Interview time</div><div class="v">~20 minutes</div></div>
+        <div class="ov-cell"><div class="l">AI questions</div><div class="v">6 tailored</div></div>
+      </div>
+      <div style="margin-top:16px" class="chips">
+        <span class="skill key"><svg class="star" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.6 6.9L22 9.3l-5.5 4.4L18.3 21 12 16.9 5.7 21l1.8-7.3L2 9.3l7.4-.4z"/></svg>Figma</span>
+        <span class="skill key"><svg class="star" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.6 6.9L22 9.3l-5.5 4.4L18.3 21 12 16.9 5.7 21l1.8-7.3L2 9.3l7.4-.4z"/></svg>Design Systems</span>
+        <span class="skill">Prototyping</span>
+        <span class="skill">UX Research</span>
+        <span class="skill ghost" style="background:var(--bg);color:var(--muted)">+3 more</span>
+      </div>
+    </section>
+
+    <!-- JOB DESCRIPTION -->
+    <section class="card pad">
+      <div class="sect-eyebrow">Job description</div>
+      <h2 class="sect-title" style="margin-bottom:14px">About the role</h2>
+      <div class="prose">
+        <p>Aperture Labs is looking for a <b>Senior Product Designer</b> to shape the next generation of our AI-driven products. You'll own end-to-end design for core product areas — from early discovery and research through polished, shipped experiences used by hundreds of thousands of people.</p>
+        <p><b>Day-to-day,</b> you'll partner closely with product managers and engineers to turn ambiguous problems into clear, elegant solutions. You'll run research sessions, sketch and prototype ideas quickly, contribute to and extend our design system, and pressure-test flows with real users before they ship.</p>
+        <p><b>Expected outcomes:</b> within your first 90 days you'll have shipped at least one meaningful product improvement, established a rhythm of continuous user research, and helped raise the quality bar across the design team through critique and shared components.</p>
+      </div>
+    </section>
+
+    <!-- KEY RESPONSIBILITIES -->
+    <section class="card pad">
+      <div class="sect-eyebrow">Key responsibilities</div>
+      <h2 class="sect-title" style="margin-bottom:6px">What you'll do</h2>
+      <div class="tick-list">
+        <div class="tick"><span class="ck"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></span>Design user-centered interfaces that balance business goals with real user needs.</div>
+        <div class="tick"><span class="ck"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></span>Collaborate with cross-functional teams across product, engineering, and research.</div>
+        <div class="tick"><span class="ck"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></span>Conduct user research and usability testing to validate design decisions.</div>
+        <div class="tick"><span class="ck"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></span>Build and maintain scalable design systems and component libraries.</div>
+        <div class="tick"><span class="ck"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></span>Create interactive prototypes to communicate ideas and de-risk decisions early.</div>
+        <div class="tick"><span class="ck"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></span>Mentor designers and elevate craft through critique and documentation.</div>
+      </div>
+    </section>
+
+    <!-- REQUIRED QUALIFICATIONS -->
+    <section class="card pad">
+      <div class="sect-eyebrow">Required qualifications</div>
+      <h2 class="sect-title" style="margin-bottom:18px">What we're looking for</h2>
+      <div class="qual-grid">
+        <div class="qual-box">
+          <div class="qh"><span class="qi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 2.7 3 6 3s6-2 6-3v-5"/></svg></span>Education</div>
+          <ul><li>Bachelor's degree in Design, HCI, or a related field — or equivalent practical experience.</li></ul>
+        </div>
+        <div class="qual-box">
+          <div class="qh"><span class="qi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>Experience</div>
+          <ul><li>5+ years designing digital products end-to-end.</li><li>Proven track record of shipping at scale.</li></ul>
+        </div>
+        <div class="qual-box">
+          <div class="qh"><span class="qi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 16 4-4-4-4M6 8l-4 4 4 4M14.5 4l-5 16"/></svg></span>Technical skills</div>
+          <ul><li>Expert in Figma and modern design tooling.</li><li>Strong systems thinking and prototyping ability.</li></ul>
+        </div>
+        <div class="qual-box">
+          <div class="qh"><span class="qi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>Soft skills</div>
+          <ul><li>Excellent communication and storytelling.</li><li>Comfortable with ambiguity and feedback.</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- REQUIRED SKILLS -->
+    <section class="card pad">
+      <div class="sect-eyebrow">Required skills</div>
+      <h2 class="sect-title" style="margin-bottom:16px">Core skills</h2>
+      <div class="chips">
+        <span class="skill key"><svg class="star" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.6 6.9L22 9.3l-5.5 4.4L18.3 21 12 16.9 5.7 21l1.8-7.3L2 9.3l7.4-.4z"/></svg>Figma</span>
+        <span class="skill key"><svg class="star" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.6 6.9L22 9.3l-5.5 4.4L18.3 21 12 16.9 5.7 21l1.8-7.3L2 9.3l7.4-.4z"/></svg>Design Systems</span>
+        <span class="skill">UX Research</span>
+        <span class="skill">Wireframing</span>
+        <span class="skill">Prototyping</span>
+        <span class="skill">User Testing</span>
+      </div>
+      <div class="legend"><span><i style="background:var(--primary)"></i>Critical skill</span><span><i style="background:#C9C9D4"></i>Required skill</span></div>
+    </section>
+
+    <!-- PREFERRED QUALIFICATIONS -->
+    <section class="card pad">
+      <div class="sect-eyebrow">Preferred qualifications</div>
+      <h2 class="sect-title" style="margin-bottom:4px">Nice to have</h2>
+      <p style="font-size:13.5px;color:var(--muted);margin-bottom:16px">These are a plus, not required — apply even if you don't have all of them.</p>
+      <div class="tick-list">
+        <div class="tick plus"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>Motion design & micro-interaction experience.</div>
+        <div class="tick plus"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>Working knowledge of HTML & CSS.</div>
+        <div class="tick plus"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>Experience designing AI-powered products.</div>
+        <div class="tick plus"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>Familiarity with Agile methodology.</div>
+      </div>
+      <div class="chips" style="margin-top:16px">
+        <span class="skill pref">Motion Design</span>
+        <span class="skill pref">HTML / CSS</span>
+        <span class="skill pref">AI Product Experience</span>
+        <span class="skill pref">Agile</span>
+      </div>
+    </section>
+
+    <!-- BENEFITS -->
+    <section class="card pad">
+      <div class="sect-eyebrow">Benefits &amp; perks</div>
+      <h2 class="sect-title" style="margin-bottom:18px">What you'll get</h2>
+      <div class="perk-grid">
+        <div class="perk"><span class="pi"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span><div><div class="pt">Competitive salary</div><div class="ps">$130k–$160k + equity</div></div></div>
+        <div class="perk"><span class="pi"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span><div><div class="pt">Flexible hours</div><div class="ps">Own your schedule</div></div></div>
+        <div class="perk"><span class="pi"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span><div><div class="pt">Fully remote</div><div class="ps">Work from anywhere</div></div></div>
+        <div class="perk"><span class="pi"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 2.7 3 6 3s6-2 6-3v-5"/></svg></span><div><div class="pt">Learning budget</div><div class="ps">$2k/yr for growth</div></div></div>
+        <div class="perk"><span class="pi"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg></span><div><div class="pt">Career growth</div><div class="ps">Clear progression</div></div></div>
+        <div class="perk"><span class="pi"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></span><div><div class="pt">Health benefits</div><div class="ps">Medical, dental, vision</div></div></div>
+        <div class="perk"><span class="pi"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><div><div class="pt">Paid leave</div><div class="ps">Unlimited PTO</div></div></div>
+        <div class="perk"><span class="pi"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-6 0v4M5 9h14l1 12H4z"/></svg></span><div><div class="pt">Home office</div><div class="ps">Setup stipend</div></div></div>
+      </div>
+    </section>
+
+    <!-- AI INTERVIEW INFO -->
+    <section class="card pad-lg ai-card" id="ai">
+      <div class="sect-eyebrow">AI interview</div>
+      <h2 class="sect-title">How the AI interview works</h2>
+      <div class="ai-list">
+        <div class="ai-item"><span class="ck"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></span>Questions are generated specifically for this job from its description.</div>
+        <div class="ai-item"><span class="ck"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></span>The AI evaluates your responses against the role's requirements.</div>
+        <div class="ai-item"><span class="ck"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></span>Video, audio, and screen activity are recorded during the interview.</div>
+        <div class="ai-item"><span class="ck"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></span>The interview can only be taken <b style="color:#fff">once</b> — there are no retakes.</div>
+        <div class="ai-item"><span class="ck"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></span>The recruiter receives an overall performance score and interview analysis.</div>
+      </div>
+      <div class="flow">
+        <div class="flow-step"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div><div class="ft">Job Application</div><div class="fs">Submit &amp; confirm</div></div>
+        <div class="flow-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="flow-step"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div><div class="ft">AI Interview</div><div class="fs">~20 min · 6 questions</div></div>
+        <div class="flow-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="flow-step"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></div><div class="ft">AI Evaluation</div><div class="fs">Scored &amp; analyzed</div></div>
+        <div class="flow-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="flow-step"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></div><div class="ft">Application Review</div><div class="fs">Recruiter decision</div></div>
+      </div>
+    </section>
+
+    <!-- HIRING PROCESS -->
+    <section class="card pad" id="hiring">
+      <div class="sect-eyebrow">Hiring process</div>
+      <h2 class="sect-title" style="margin-bottom:22px">Your journey to an offer</h2>
+      <div class="tl">
+        <div class="step"><div class="nod">1</div><div class="bar"></div><div class="info"><div class="t">Submit application</div><div class="d">Confirm your profile and apply in one click.</div></div></div>
+        <div class="step"><div class="nod">2</div><div class="bar"></div><div class="info"><div class="t">AI video interview</div><div class="d">Complete a ~20 minute interview tailored to this role.</div></div></div>
+        <div class="step"><div class="nod">3</div><div class="bar"></div><div class="info"><div class="t">AI evaluation</div><div class="d">Responses are scored objectively against the job requirements.</div></div></div>
+        <div class="step"><div class="nod">4</div><div class="bar"></div><div class="info"><div class="t">Recruiter review</div><div class="d">The hiring team reviews your interview analysis and profile.</div></div></div>
+        <div class="step"><div class="nod">5</div><div class="info"><div class="t">Final decision</div><div class="d">You'll hear back with next steps, typically within 5–7 days.</div></div></div>
+      </div>
+    </section>
+
+    <!-- SIMILAR JOBS -->
+    <section class="card pad">
+      <div class="sect-eyebrow">Similar jobs</div>
+      <h2 class="sect-title" style="margin-bottom:18px">You might also like</h2>
+      <div class="sim-grid">
+        <a class="sim" href="Job-Detail.html">
+          <div class="sh"><span class="sl" style="background:#E9F7F0;color:#157A50">N</span><div><div class="st">Frontend Engineer</div><div class="sc">Nova Health · Austin, TX</div></div><span class="match">91%</span></div>
+          <div class="smeta"><span>$135k</span><span>Mid · 3+ yrs</span><span>Hybrid</span></div>
+          <div class="sfoot"><span class="view">View details <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+        </a>
+        <a class="sim" href="Job-Detail.html">
+          <div class="sh"><span class="sl" style="background:#FDF1E6;color:#B26A16">V</span><div><div class="st">UX Researcher</div><div class="sc">Vortex · New York, NY</div></div><span class="match">88%</span></div>
+          <div class="smeta"><span>$120k</span><span>Mid · 3+ yrs</span><span>On-site</span></div>
+          <div class="sfoot"><span class="view">View details <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+        </a>
+        <a class="sim" href="Job-Detail.html">
+          <div class="sh"><span class="sl" style="background:#EFF1E8;color:#2C5FBF">S</span><div><div class="st">Product Marketing Lead</div><div class="sc">Samtiv · Chicago, IL</div></div><span class="match">84%</span></div>
+          <div class="smeta"><span>$128k</span><span>Senior · 5+ yrs</span><span>On-site</span></div>
+          <div class="sfoot"><span class="view">View details <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+        </a>
+        <a class="sim" href="Job-Detail.html">
+          <div class="sh"><span class="sl" style="background:#FCEFF1;color:#1A0206">U</span><div><div class="st">Motion Designer</div><div class="sc">Unica · Remote</div></div><span class="match">77%</span></div>
+          <div class="smeta"><span>$112k</span><span>Mid · 3+ yrs</span><span>Remote</span></div>
+          <div class="sfoot"><span class="view">View details <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="card pad">
+      <div class="sect-eyebrow">FAQ</div>
+      <h2 class="sect-title" style="margin-bottom:8px">Frequently asked questions</h2>
+      <div class="faq-list">
+        <div class="faq" onclick="toggleFaq(this)"><div class="fq"><span class="qmark">?</span>Can I retake the interview?<span class="caret"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m6 9 6 6 6-6"/></svg></span></div><div class="fa">No. The AI interview can only be taken once per application to keep evaluations fair and consistent for every candidate. Make sure you're ready before you begin.</div></div>
+        <div class="faq" onclick="toggleFaq(this)"><div class="fq"><span class="qmark">?</span>How long is the interview?<span class="caret"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m6 9 6 6 6-6"/></svg></span></div><div class="fa">This interview is estimated at about 20 minutes and includes 6 questions tailored to the Senior Product Designer role. You can take short pauses between questions.</div></div>
+        <div class="faq" onclick="toggleFaq(this)"><div class="fq"><span class="qmark">?</span>Is the interview recorded?<span class="caret"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m6 9 6 6 6-6"/></svg></span></div><div class="fa">Yes. Your video, audio, and screen activity are securely recorded and encrypted. Only the hiring team for this role can access your interview and analysis.</div></div>
+        <div class="faq" onclick="toggleFaq(this)"><div class="fq"><span class="qmark">?</span>What happens after I finish?<span class="caret"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m6 9 6 6 6-6"/></svg></span></div><div class="fa">The AI generates an overall performance score and a detailed analysis for the recruiter. Your application then moves to recruiter review — you'll typically hear back within 5–7 days.</div></div>
+        <div class="faq" onclick="toggleFaq(this)"><div class="fq"><span class="qmark">?</span>Can I apply without completing the AI interview?<span class="caret"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m6 9 6 6 6-6"/></svg></span></div><div class="fa">No. The AI interview is a required part of every application on TalentFlow AI. Your application is only complete once the interview has been submitted.</div></div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ===================== STICKY APPLY CARD (desktop) ===================== -->
+  <aside class="aside">
+    <div class="card pad apply-card">
+      <div class="ac-price">$130k–$160k <span>/ yr</span></div>
+      <div class="ac-title">Senior Product Designer</div>
+      <div class="ac-sub">Aperture Labs · Full-time · Remote</div>
+
+      <div class="deadline-strip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Closes in 27 days · Aug 5, 2026</div>
+
+      <div class="ac-mini">
+        <div class="kv"><span class="k"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>Employment</span><span class="v">Full-time</span></div>
+        <div class="kv"><span class="k"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>Experience</span><span class="v">Senior</span></div>
+        <div class="kv"><span class="k"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>Interview</span><span class="v">~20 min · AI</span></div>
+        <div class="kv"><span class="k"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Location</span><span class="v">Remote</span></div>
+      </div>
+
+      <button class="btn btn-primary btn-block" onclick="applyNow()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Apply Now</button>
+      <button class="btn btn-ghost btn-block" style="margin-top:10px" id="saveBtn2" onclick="toggleSave()"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>Save job</button>
+
+      <div class="progress-mini">
+        <div class="pmt"><span style="color:var(--ink-2)">Your profile</span><span id="pmPct">100% complete</span></div>
+        <div class="pmbar"><i id="pmBar" style="width:100%"></i></div>
+      </div>
+      <div class="ac-note">Applying starts a one-time AI interview that can't be retaken.</div>
+    </div>
+  </aside>
+</main>
+
+<!-- ===================== ERROR / EMPTY STATES ===================== -->
+<div class="state-wrap" id="stateWrap">
+  <div class="card state-card" id="stateCard"></div>
+</div>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="foot-in">
+    <img src="talentflow-logo-white.svg" alt="TalentFlow" style="height:26px;width:auto;display:block"/>
+    <div class="foot-links"><a href="#ai">AI Interview</a><a href="#hiring">Hiring Process</a><a href="Candidate%20Dashboard.dc.html">Find Jobs</a><a href="#">Privacy</a></div>
+    <div class="fc">© 2026 TalentFlow AI. All rights reserved.</div>
+  </div>
+</footer>
+
+<!-- ===================== MOBILE STICKY BAR ===================== -->
+<div class="mobile-bar" id="mobileBar">
+  <div class="mb-info"><div class="mp">$130k–$160k</div><div class="ms">Full-time · Closes Aug 5</div></div>
+  <button class="btn btn-primary" onclick="applyNow()">Apply Now</button>
+</div>
+
+<!-- ===================== MODALS ===================== -->
+<div class="overlay" id="modalOverlay">
+  <div class="modal" id="modalBox"></div>
+</div>
+
+<!-- ===================== DEMO STATE SWITCHER ===================== -->
+<button class="states-fab" onclick="toggleStates(event)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Preview states</button>
+<div class="states-menu" id="statesMenu">
+  <div class="grp">Candidate context</div>
+  <button data-ctx="loggedIn" onclick="toggleCtx('loggedIn',this)" class="on"><span class="sd"></span>Logged in</button>
+  <button data-ctx="profileComplete" onclick="toggleCtx('profileComplete',this)" class="on"><span class="sd"></span>Profile 100% complete</button>
+  <div class="grp">Job / page state</div>
+  <button data-state="default" onclick="setState('default',this)" class="on"><span class="sd"></span>Open (default)</button>
+  <button data-state="soon" onclick="setState('soon',this)"><span class="sd"></span>Closing soon</button>
+  <button data-state="closed" onclick="setState('closed',this)"><span class="sd"></span>Job closed</button>
+  <button data-state="deadline" onclick="setState('deadline',this)"><span class="sd"></span>Deadline passed</button>
+  <button data-state="filled" onclick="setState('filled',this)"><span class="sd"></span>Position filled</button>
+  <button data-state="removed" onclick="setState('removed',this)"><span class="sd"></span>Job removed</button>
+  <button data-state="network" onclick="setState('network',this)"><span class="sd"></span>Network error</button>
+  <button data-state="session" onclick="setState('session',this)"><span class="sd"></span>Session expired</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------------- candidate + job context (demo) ---------------- */
+const ctx = { loggedIn:true, profileComplete:true, profilePct:100 };
+
+/* ---------------- save / share / faq ---------------- */
+let saved=false;
+function toggleSave(){
+  saved=!saved;
+  const b1=document.getElementById('saveBtn');
+  b1.classList.toggle('saved',saved);
+  b1.querySelector('svg').setAttribute('fill',saved?'currentColor':'none');
+  const b2=document.getElementById('saveBtn2');
+  b2.innerHTML = saved
+    ? '<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>Saved'
+    : '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>Save job';
+  toast(saved?'Job saved to your list':'Removed from saved');
+}
+function toggleShare(e){ e.stopPropagation(); document.getElementById('sharePop').classList.toggle('on'); }
+function copyLink(){
+  const done=()=>{toast('Link copied to clipboard');document.getElementById('sharePop').classList.remove('on');};
+  if(navigator.clipboard&&location.protocol!=='file:'){navigator.clipboard.writeText(location.href).then(done).catch(done);}else{done();}
+}
+function toggleFaq(el){ el.classList.toggle('open'); }
+document.addEventListener('click',e=>{
+  if(!e.target.closest('#sharePop')&&!e.target.closest('[onclick^="toggleShare"]')) document.getElementById('sharePop').classList.remove('on');
+  if(!e.target.closest('#statesMenu')&&!e.target.closest('.states-fab')) document.getElementById('statesMenu').classList.remove('on');
+});
+
+/* ---------------- toast ---------------- */
+let toastT;
+function toast(msg){ const t=document.getElementById('toast'); t.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3DBE86" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>'+msg; t.classList.add('on'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('on'),2400); }
+
+/* ---------------- modal ---------------- */
+function openModal(html){ document.getElementById('modalBox').innerHTML=html; document.getElementById('modalOverlay').classList.add('on'); }
+function closeModal(){ document.getElementById('modalOverlay').classList.remove('on'); }
+document.getElementById('modalOverlay').addEventListener('click',e=>{ if(e.target.id==='modalOverlay') closeModal(); });
+
+/* ---------------- APPLY FLOW ----------------
+   1. Verify logged in
+   2. Check profile 100% complete -> else redirect to profile completion
+   3. Show AI interview introduction
+   4. Begin AI interview flow
+------------------------------------------------ */
+function applyNow(){
+  // guard: page/job state must allow applying
+  if(currentState!=='default' && currentState!=='soon'){ setState(currentState); toast('This job is no longer accepting applications'); return; }
+
+  if(!ctx.loggedIn){
+    openModal(`
+      <div class="mh"><div class="mi info"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5M15 12H3"/></svg></div>
+      <h3>Sign in to continue</h3><p class="mp">You need a TalentFlow account to apply for this role and start your AI interview.</p></div>
+      <div class="mb"><div class="mrow"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><a class="btn btn-primary" style="text-decoration:none" href="Auth.dc.html">Sign in</a></div></div>`);
+    return;
+  }
+  if(!ctx.profileComplete){
+    openModal(`
+      <div class="mh"><div class="mi warn"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/></svg></div>
+      <h3>Complete your profile first</h3><p class="mp">Your profile is <b>${ctx.profilePct}% complete</b>. Recruiters need a full profile alongside your AI interview. Finish it to apply.</p></div>
+      <div class="mb">
+        <div class="progress-mini" style="margin:0 0 18px"><div class="pmt"><span style="color:var(--ink-2)">Profile completion</span><span>${ctx.profilePct}%</span></div><div class="pmbar"><i style="width:${ctx.profilePct}%;background:linear-gradient(90deg,var(--warn),#F5C400)"></i></div></div>
+        <div class="mrow"><button class="btn btn-ghost" onclick="closeModal()">Later</button><a class="btn btn-primary" style="text-decoration:none" href="Auth.dc.html">Complete profile</a></div>
+      </div>`);
+    return;
+  }
+  // AI interview introduction
+  openModal(`
+    <div class="mh"><div class="mi ai"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+    <h3>Start your AI interview</h3><p class="mp">You're applying for <b>Senior Product Designer</b> at Aperture Labs. This is a one-time interview — here's what happens next.</p></div>
+    <div class="mb">
+      <div class="steps">
+        <div class="si2"><span class="n">1</span><div><b>Device & permission check</b> — camera, microphone and screen sharing.</div></div>
+        <div class="si2"><span class="n">2</span><div><b>6 tailored questions</b> — generated from this job (~20 minutes).</div></div>
+        <div class="si2"><span class="n">3</span><div><b>AI evaluation</b> — an overall score and analysis is sent to the recruiter.</div></div>
+      </div>
+      <div class="notice warn" style="margin-bottom:18px"><span class="ni"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg></span><div>This interview <b>cannot be retaken</b>. Make sure you're in a quiet space and ready to begin.</div></div>
+      <div class="mrow"><button class="btn btn-ghost" onclick="closeModal()">Not now</button><a class="btn btn-primary" style="text-decoration:none" href="TalentFlow-AI-Interview.html">Begin interview</a></div>
+    </div>`);
+}
+
+/* ---------------- demo: candidate context toggles ---------------- */
+function toggleCtx(key,btn){
+  ctx[key]=!ctx[key];
+  btn.classList.toggle('on',ctx[key]);
+  if(key==='profileComplete'){
+    ctx.profilePct = ctx.profileComplete?100:60;
+    document.getElementById('pmPct').textContent = ctx.profilePct+'% complete';
+    document.getElementById('pmBar').style.width = ctx.profilePct+'%';
+    document.getElementById('pmPct').style.color = ctx.profileComplete?'var(--success-600)':'var(--warn)';
+    document.getElementById('pmBar').style.background = ctx.profileComplete?'linear-gradient(90deg,var(--success),#3DBE86)':'linear-gradient(90deg,var(--warn),#F5C400)';
+  }
+}
+function toggleStates(e){ e.stopPropagation(); document.getElementById('statesMenu').classList.toggle('on'); }
+
+/* ---------------- error / empty states ---------------- */
+let currentState='default';
+const STATES={
+  closed:{icon:'danger',svg:'<circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/>',title:'This job is closed',msg:'Aperture Labs is no longer accepting applications for this role. Explore similar open positions instead.',actions:'<a class="btn btn-primary" href="Candidate%20Dashboard.dc.html">Browse open jobs</a><button class="btn btn-ghost" onclick="setState(\'default\')">View job details</button>'},
+  deadline:{icon:'warn',svg:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',title:'Application deadline passed',msg:'The deadline for this position was Aug 5, 2026. Applications are now closed, but similar roles are still open.',actions:'<a class="btn btn-primary" href="Candidate%20Dashboard.dc.html">See similar jobs</a>'},
+  filled:{icon:'muted',svg:'<path d="M20 6 9 17l-5-5"/>',title:'This position has been filled',msg:'All open positions for Senior Product Designer have been filled. Save your search and we\'ll notify you when similar roles open up.',actions:'<a class="btn btn-primary" href="Candidate%20Dashboard.dc.html">Find similar roles</a><button class="btn btn-ghost" onclick="toast(\'We will notify you about similar jobs\')">Notify me</button>'},
+  removed:{icon:'muted',svg:'<path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>',title:'Job no longer available',msg:'This job posting has been removed by the employer or is no longer available. The link may be out of date.',actions:'<a class="btn btn-primary" href="Candidate%20Dashboard.dc.html">Back to job search</a>'},
+  network:{icon:'danger',svg:'<path d="M1 1l22 22M16.72 11.06A10.94 10.94 0 0 1 19 12.55M5 12.55a10.94 10.94 0 0 1 5.17-2.39M10.71 5.05A16 16 0 0 1 22.58 9M1.42 9a15.91 15.91 0 0 1 4.7-2.88M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/>',title:'Something went wrong',msg:'We couldn\'t load this job. Please check your connection and try again.',actions:'<button class="btn btn-primary" onclick="setState(\'default\')"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>Retry</button>'},
+  session:{icon:'warn',svg:'<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5M15 12H3"/>',title:'Your session expired',msg:'For your security, you\'ve been signed out due to inactivity. Please sign in again to continue applying.',actions:'<a class="btn btn-primary" href="Auth.dc.html">Sign in again</a>'}
+};
+function setState(state,btn){
+  currentState=state;
+  // menu highlight
+  document.querySelectorAll('#statesMenu [data-state]').forEach(b=>b.classList.toggle('on',b.dataset.state===state));
+  const main=document.getElementById('mainWrap');
+  const sw=document.getElementById('stateWrap');
+  const mb=document.getElementById('mobileBar');
+  if(state==='default'||state==='soon'){
+    main.style.display='grid'; sw.classList.remove('on'); mb.style.display='';
+    // status pill variant
+    const pill=document.getElementById('statusPill');
+    if(state==='soon'){pill.className='pill soon';pill.innerHTML='<span class="d"></span>Closing soon';}
+    else{pill.className='pill open';pill.innerHTML='<span class="d"></span>Open';}
+    window.scrollTo({top:0,behavior:'smooth'});
+    return;
+  }
+  const s=STATES[state];
+  document.getElementById('stateCard').innerHTML=`
+    <div class="si ${s.icon}"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${s.svg}</svg></div>
+    <h2>${s.title}</h2><p>${s.msg}</p><div class="row">${s.actions}</div>`;
+  main.style.display='none'; sw.classList.add('on'); mb.style.display='none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

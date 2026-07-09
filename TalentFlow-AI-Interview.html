@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>TalentFlow AI — Interview Experience</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Content:wght@400;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#D40A2E; --primary-600:#A00823; --primary-50:#FCEFF1; --violet:#F5C400;
+  --ink:#1A0206; --ink-2:#33000A; --muted:#5E5E6E; --faint:#9E9EB0;
+  --line:#E6E6EC; --line-2:#EFEFF3; --bg:#F2F2F6; --card:#FFFFFF;
+  --success:#22A06B; --success-600:#157A50; --success-bg:#E6F6EF;
+  --warn:#E8963A; --warn-bg:#FDF1E6; --danger:#E05656; --danger-bg:#FBE7E7;
+  --rec:#E05656; --r:16px; --r-lg:24px; --r-sm:10px; --r-xs:8px;
+  --sh:0 1px 2px rgba(26,2,6,.04),0 8px 24px rgba(26,2,6,.06);
+  --sh-lg:0 24px 60px rgba(26,2,6,.16);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:#FFFFFF;color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5}
+h1,h2,h3,h4{margin:0;letter-spacing:-.02em;line-height:1.15;font-family:'Content',Georgia,serif}
+p{margin:0}
+button{font-family:inherit;cursor:pointer}
+.mono{font-variant-numeric:tabular-nums}
+
+/* ---------- top bar ---------- */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:blur(14px);}
+.topbar-in{max-width:1120px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:18px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:16px;letter-spacing:-.02em}
+.logo .mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--violet));display:grid;place-items:center;box-shadow:0 6px 16px rgba(212,10,46,.35)}
+.badge-secure{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--success-600);background:var(--success-bg);padding:6px 11px;border-radius:999px}
+.tb-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--ink-2);background:#fff;border:1px solid var(--line);padding:8px 12px;border-radius:10px}
+.tb-btn:hover{background:var(--bg)}
+.tb-btn.danger{color:var(--danger);border-color:#FBD5D5}
+.tb-btn.danger:hover{background:var(--danger-bg)}
+
+/* setup progress */
+.stepper{max-width:1120px;margin:0 auto;padding:14px 24px 2px;display:flex;align-items:center;gap:0}
+.stepper .st{flex:1;display:flex;flex-direction:column;align-items:center;position:relative;gap:7px}
+.stepper .st .dot{width:26px;height:26px;border-radius:50%;background:#fff;border:2px solid var(--line);display:grid;place-items:center;font-size:11px;font-weight:800;color:var(--faint);z-index:1}
+.stepper .st.done .dot{background:var(--primary);border-color:var(--primary);color:#fff}
+.stepper .st.active .dot{border-color:var(--primary);color:var(--primary);background:var(--primary-50)}
+.stepper .st .lbl{font-size:11px;font-weight:600;color:var(--faint);white-space:nowrap}
+.stepper .st.done .lbl,.stepper .st.active .lbl{color:var(--ink-2)}
+.stepper .st .line{position:absolute;top:13px;left:50%;width:100%;height:2px;background:var(--line)}
+.stepper .st.done .line{background:var(--primary)}
+.stepper .st:last-child .line{display:none}
+
+/* ---------- layout ---------- */
+.stage{max-width:1120px;margin:0 auto;padding:34px 24px 80px}
+.screen{display:none;animation:fade .35s ease}
+.screen.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.narrow{max-width:620px;margin:0 auto}
+.mid{max-width:820px;margin:0 auto}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh)}
+.pad{padding:32px}
+.eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--primary);background:var(--primary-50);padding:6px 12px;border-radius:999px}
+.h-title{font-size:30px;font-weight:800;margin:16px 0 8px}
+.lead{font-size:16px;color:var(--muted);max-width:52ch}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;height:50px;padding:0 24px;border-radius:14px;border:none;font-size:15px;font-weight:700;transition:transform .05s,filter .15s}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--primary);color:#fff;box-shadow:0 8px 20px rgba(212,10,46,.28)}
+.btn-primary:hover{filter:brightness(1.06)}
+.btn-primary:disabled{background:#C4C4D2;box-shadow:none;cursor:not-allowed;color:#fff}
+.btn-ghost{background:#fff;border:1.5px solid var(--line);color:var(--ink-2)}
+.btn-ghost:hover{background:var(--bg)}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-soft{background:var(--primary-50);color:var(--primary-600)}
+.btn-block{width:100%}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.row.end{justify-content:flex-end}
+.row.between{justify-content:space-between;align-items:center}
+
+/* info list / notices */
+.kv{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--line-2)}
+.kv:last-child{border-bottom:none}
+.kv .k{display:flex;align-items:center;gap:11px;font-size:14px;color:var(--muted)}
+.kv .v{font-size:14px;font-weight:700;color:var(--ink)}
+.ic{width:34px;height:34px;border-radius:10px;background:var(--primary-50);color:var(--primary);display:grid;place-items:center;flex-shrink:0}
+.notice{display:flex;gap:12px;padding:14px 16px;border-radius:14px;font-size:13.5px;line-height:1.5}
+.notice.warn{background:var(--warn-bg);color:#B26A16;border:1px solid #FDE9C8}
+.notice.info{background:var(--primary-50);color:var(--primary-600);border:1px solid #F5CBD3}
+.notice.ok{background:var(--success-bg);color:var(--success-600);border:1px solid #C7EEDD}
+.notice b{color:inherit}
+.notice .ni{flex-shrink:0;margin-top:1px}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stat-tile{background:var(--bg);border-radius:var(--r);padding:16px 18px}
+.stat-tile .n{font-size:26px;font-weight:800;letter-spacing:-.03em}
+.stat-tile .l{font-size:12.5px;color:var(--muted);font-weight:500;margin-top:2px}
+
+/* permission cards */
+.perm{display:flex;align-items:center;gap:16px;padding:18px;border:1.5px solid var(--line);border-radius:var(--r);transition:border-color .2s,background .2s}
+.perm+.perm{margin-top:12px}
+.perm.granted{border-color:#C7EEDD;background:var(--success-bg)}
+.perm .pic{width:50px;height:50px;border-radius:14px;background:var(--primary-50);color:var(--primary);display:grid;place-items:center;flex-shrink:0}
+.perm.granted .pic{background:#fff;color:var(--success-600)}
+.perm .meta{flex:1;min-width:0}
+.perm .meta .t{font-size:15px;font-weight:700}
+.perm .meta .s{font-size:13px;color:var(--muted)}
+.perm .st-pill{font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;background:#F2F2F6;color:var(--muted)}
+.perm.granted .st-pill{background:#fff;color:var(--success-600)}
+
+/* checklist */
+.chk-item{display:flex;align-items:center;gap:14px;padding:15px 0;border-bottom:1px solid var(--line-2)}
+.chk-item:last-child{border:none}
+.chk-item .cs{width:26px;height:26px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;border:2px solid var(--line);color:var(--faint)}
+.chk-item.pass .cs{background:var(--success);border-color:var(--success);color:#fff}
+.chk-item.fail .cs{background:var(--danger);border-color:var(--danger);color:#fff}
+.chk-item.run .cs{border-color:var(--primary);border-top-color:transparent;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.chk-item .ct{flex:1}
+.chk-item .ct .t{font-size:14.5px;font-weight:600}
+.chk-item .ct .d{font-size:12.5px;color:var(--muted)}
+
+/* checkbox */
+.agree{display:flex;align-items:flex-start;gap:12px;padding:14px;border:1.5px solid var(--line);border-radius:14px;cursor:pointer;transition:.15s}
+.agree+.agree{margin-top:10px}
+.agree:hover{border-color:#D5D5DE}
+.agree.on{border-color:var(--primary);background:var(--primary-50)}
+.agree .box{width:22px;height:22px;border-radius:7px;border:2px solid var(--line);flex-shrink:0;display:grid;place-items:center;color:#fff;transition:.15s;margin-top:1px}
+.agree.on .box{background:var(--primary);border-color:var(--primary)}
+.agree .txt{font-size:13.5px;color:var(--ink-2);line-height:1.5}
+.agree a{color:var(--primary);font-weight:600}
+
+/* webcam / preview */
+.cam{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:16/10;background:radial-gradient(120% 120% at 50% 0,#33000A,#1A0206)}
+.cam .silh{position:absolute;inset:0;display:grid;place-items:center;color:#6B4F54}
+.cam .scan{position:absolute;left:0;right:0;height:34%;top:-34%;background:linear-gradient(180deg,transparent,rgba(212,10,46,.18),transparent);animation:scan 3.4s ease-in-out infinite}
+@keyframes scan{0%{top:-34%}100%{top:100%}}
+.cam .tag{position:absolute;bottom:10px;left:10px;display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:700;color:#fff;background:rgba(26,2,6,.6);backdrop-filter:blur(6px);padding:6px 10px;border-radius:999px}
+.dot-rec{width:8px;height:8px;border-radius:50%;background:var(--rec);animation:pulse 1.2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.meter{height:9px;border-radius:999px;background:var(--line);overflow:hidden}
+.meter i{display:block;height:100%;width:30%;background:linear-gradient(90deg,var(--success),#3DBE86);border-radius:999px;transition:width .1s}
+
+/* indicators bar */
+.ind-bar{display:flex;flex-wrap:wrap;gap:8px}
+.ind{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--ink-2);background:#fff;border:1px solid var(--line);padding:7px 11px;border-radius:999px}
+.ind .d{width:8px;height:8px;border-radius:50%;background:var(--success)}
+.ind.rec .d{background:var(--rec);animation:pulse 1.2s infinite}
+.ind.think .d{background:var(--warn)}
+.ind.muted{color:var(--faint)}
+.ind.muted .d{background:var(--faint)}
+
+/* interview screen */
+.iv-shell{display:grid;grid-template-columns:1.35fr .9fr;gap:20px}
+.q-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:28px;min-height:420px;display:flex;flex-direction:column}
+.q-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.assistant{display:flex;align-items:center;gap:11px}
+.assistant .ava{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--violet));display:grid;place-items:center;color:#fff;flex-shrink:0}
+.assistant .ava.speaking{box-shadow:0 0 0 0 rgba(212,10,46,.5);animation:ring 1.4s infinite}
+@keyframes ring{0%{box-shadow:0 0 0 0 rgba(212,10,46,.45)}70%{box-shadow:0 0 0 14px rgba(212,10,46,0)}100%{box-shadow:0 0 0 0 rgba(212,10,46,0)}}
+.qnum{font-size:12.5px;font-weight:700;color:var(--muted)}
+.q-progress{height:6px;border-radius:999px;background:var(--line);overflow:hidden;margin-bottom:22px}
+.q-progress i{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--violet));transition:width .4s}
+.q-text{font-size:23px;font-weight:700;line-height:1.35;letter-spacing:-.01em}
+.q-play{display:inline-flex;align-items:center;gap:9px;margin-top:16px;font-size:13px;font-weight:600;color:var(--primary-600);background:var(--primary-50);border:none;padding:9px 14px;border-radius:11px}
+.q-foot{margin-top:auto;padding-top:22px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.timepill{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:800;color:var(--ink);background:var(--bg);padding:9px 14px;border-radius:12px}
+.timepill.warn{color:#B26A16;background:var(--warn-bg)}
+.side{display:flex;flex-direction:column;gap:16px}
+.transcript{background:var(--bg);border-radius:14px;padding:14px;font-size:13px;color:var(--ink-2);min-height:74px;line-height:1.6}
+.transcript .cursor{display:inline-block;width:2px;height:15px;background:var(--primary);vertical-align:-2px;animation:pulse 1s infinite}
+
+/* processing / preparing */
+.ring{--v:0;width:150px;height:150px;border-radius:50%;background:conic-gradient(var(--primary) calc(var(--v)*1%),var(--line) 0);display:grid;place-items:center;margin:0 auto;transition:background .3s}
+.ring .in{width:120px;height:120px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:30px;font-weight:800}
+.load-msg{display:flex;align-items:center;gap:12px;padding:12px 0;color:var(--faint);font-size:14.5px;font-weight:500;transition:.3s}
+.load-msg.on{color:var(--ink)}
+.load-msg.done{color:var(--success-600)}
+.load-msg .m{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;flex-shrink:0}
+.load-msg.on .m{border-color:var(--primary);border-top-color:transparent;animation:spin .7s linear infinite}
+.load-msg.done .m{background:var(--success);border-color:var(--success);color:#fff}
+
+/* score ring big */
+.score-ring{--v:0;width:180px;height:180px;border-radius:50%;background:conic-gradient(var(--success) calc(var(--v)*3.6deg),var(--line) 0);display:grid;place-items:center}
+.score-ring .in{width:146px;height:146px;border-radius:50%;background:#fff;display:grid;place-items:center;text-align:center}
+.score-ring .in b{font-size:44px;font-weight:800;display:block;line-height:1}
+.score-ring .in span{font-size:12px;color:var(--muted);font-weight:600}
+
+/* timeline */
+.tl{position:relative;padding-left:8px}
+.tl .step{display:flex;gap:14px;padding-bottom:22px;position:relative}
+.tl .step:last-child{padding-bottom:0}
+.tl .step .nod{width:30px;height:30px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;z-index:1;background:#fff;border:2px solid var(--line);color:var(--faint)}
+.tl .step.done .nod{background:var(--success);border-color:var(--success);color:#fff}
+.tl .step.active .nod{background:var(--primary);border-color:var(--primary);color:#fff}
+.tl .step .bar{position:absolute;left:14px;top:30px;bottom:0;width:2px;background:var(--line)}
+.tl .step.done .bar{background:var(--success)}
+.tl .step:last-child .bar{display:none}
+.tl .step .info .t{font-size:14.5px;font-weight:700}
+.tl .step .info .d{font-size:12.5px;color:var(--muted)}
+.tl .step.pending .info .t{color:var(--faint)}
+
+/* accordion (question breakdown) */
+.acc{border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.acc+.acc{margin-top:10px}
+.acc .head{display:flex;align-items:center;gap:12px;padding:15px 16px;cursor:pointer}
+.acc .head:hover{background:var(--bg)}
+.acc .qn{width:26px;height:26px;border-radius:8px;background:var(--primary-50);color:var(--primary);display:grid;place-items:center;font-size:12px;font-weight:800;flex-shrink:0}
+.acc .qt{flex:1;font-size:14px;font-weight:600}
+.acc .sc{font-size:13px;font-weight:800;padding:3px 9px;border-radius:999px}
+.acc .body{display:none;padding:2px 16px 18px 54px;font-size:13.5px;color:var(--ink-2);line-height:1.6}
+.acc.open .body{display:block}
+.acc .body .lab{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);margin:12px 0 5px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:999px}
+.chip.g{background:var(--success-bg);color:var(--success-600)}
+.chip.a{background:var(--warn-bg);color:#B26A16}
+.chip.r{background:var(--danger-bg);color:var(--danger)}
+
+/* modal */
+.overlay{position:fixed;inset:0;background:rgba(26,2,6,.55);backdrop-filter:blur(4px);z-index:100;display:none;align-items:center;justify-content:center;padding:24px;animation:fade .2s}
+.overlay.on{display:flex}
+.modal{background:#fff;border-radius:var(--r-lg);max-width:460px;width:100%;box-shadow:var(--sh-lg);overflow:hidden}
+.modal .mh{padding:26px 26px 0;text-align:center}
+.modal .mi{width:60px;height:60px;border-radius:18px;display:grid;place-items:center;margin:0 auto 16px}
+.modal .mi.danger{background:var(--danger-bg);color:var(--danger)}
+.modal .mi.warn{background:var(--warn-bg);color:var(--warn)}
+.modal .mi.info{background:var(--primary-50);color:var(--primary)}
+.modal h3{font-size:20px;font-weight:800}
+.modal p{font-size:14px;color:var(--muted);margin-top:8px}
+.modal .mb{padding:22px 26px 26px}
+.modal .steps{background:var(--bg);border-radius:12px;padding:14px 16px;margin-bottom:16px;font-size:13px;color:var(--ink-2);text-align:left}
+.modal .steps li{margin:4px 0}
+
+/* states menu */
+.menu{position:absolute;right:24px;top:60px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh-lg);padding:8px;width:260px;z-index:60;display:none}
+.menu.on{display:block}
+.menu .grp{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);padding:9px 10px 4px}
+.menu button{display:flex;width:100%;align-items:center;gap:9px;padding:9px 10px;border-radius:9px;border:none;background:none;font-size:13px;font-weight:600;color:var(--ink-2);text-align:left}
+.menu button:hover{background:var(--bg)}
+
+.footer-note{text-align:center;font-size:12px;color:var(--faint);margin-top:26px}
+
+/* mobile block */
+.mobile-block{display:none;position:fixed;inset:0;z-index:200;background:var(--bg);padding:32px;text-align:center;flex-direction:column;align-items:center;justify-content:center;gap:14px}
+@media(max-width:640px){.mobile-block{display:flex} .topbar,.stage,.stepper{display:none}}
+
+@media(max-width:980px){
+  .iv-shell{grid-template-columns:1fr}
+  .grid-2{grid-template-columns:1fr}
+  .stepper .st .lbl{display:none}
+  .h-title{font-size:25px}
+}
+svg{display:block}
+</style>
+</head>
+<body>
+
+<!-- ===== MOBILE BLOCK ===== -->
+<div class="mobile-block">
+  <div style="width:64px;height:64px;border-radius:20px;background:var(--primary-50);color:var(--primary);display:grid;place-items:center">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+  </div>
+  <h2 style="font-size:22px">Desktop or tablet required</h2>
+  <p style="color:var(--muted);font-size:14.5px;max-width:34ch">AI interviews use your camera, microphone, and screen sharing, which aren't supported on mobile. Please continue on a laptop or tablet.</p>
+</div>
+
+<!-- ===== TOP BAR ===== -->
+<header class="topbar">
+  <div class="topbar-in">
+    <div class="logo"><img src="talentflow-logo.svg" alt="TalentFlow" style="height:28px;width:auto;display:block"/><span style="font-size:11px;font-weight:800;color:#fff;background:var(--primary);padding:3px 7px;border-radius:7px;letter-spacing:.03em;line-height:1;align-self:center">AI</span></div>
+    <span class="badge-secure"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Secure & Encrypted</span>
+    <button class="tb-btn danger" onclick="requestExit()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>Exit</button>
+  </div>
+  <!-- setup stepper -->
+  <div class="stepper" id="stepper"></div>
+</header>
+
+<!-- states quick-jump menu -->
+<div class="menu" id="menu">
+  <div class="grp">Jump to screen</div>
+  <div id="menu-screens"></div>
+  <div class="grp">Error &amp; edge states</div>
+  <div id="menu-errors"></div>
+</div>
+
+<main class="stage">
+
+<!-- ================= SCREEN 1 — APPLY CONFIRMATION ================= -->
+<section class="screen" data-screen="apply">
+  <div class="narrow">
+    <div class="eyebrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg> Application · AI Interview Required</div>
+    <h1 class="h-title">Apply for this role</h1>
+    <p class="lead">Review the details below. This application includes a short AI interview generated specifically for this job.</p>
+
+    <div class="card pad" style="margin-top:22px">
+      <div class="row between" style="margin-bottom:6px">
+        <div>
+          <div style="font-size:20px;font-weight:800">Senior Product Designer</div>
+          <div style="font-size:13.5px;color:var(--muted);margin-top:2px">Aperture Labs · Design Team</div>
+        </div>
+        <div class="ic" style="width:46px;height:46px;border-radius:12px;font-weight:800">A</div>
+      </div>
+      <div style="border-top:1px solid var(--line-2);margin:14px 0"></div>
+      <div class="kv"><span class="k"><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span>Employment type</span><span class="v">Full-time</span></div>
+      <div class="kv"><span class="k"><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>Location</span><span class="v">San Francisco, CA · Hybrid</span></div>
+      <div class="kv"><span class="k"><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>Estimated duration</span><span class="v">~15–18 minutes</span></div>
+      <div class="kv"><span class="k"><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 10h8M8 14h5"/><rect x="3" y="4" width="18" height="16" rx="2"/></svg></span>Questions</span><span class="v">10 questions</span></div>
+    </div>
+
+    <div class="notice info" style="margin-top:14px"><span class="ni"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg></span><span><b>AI interview required.</b> Every application on TalentFlow AI includes a unique interview generated from this job's description.</span></div>
+    <div class="notice warn" style="margin-top:10px"><span class="ni"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg></span><span><b>One attempt only.</b> You can take this interview a single time. Make sure you're ready and in a quiet space before you begin.</span></div>
+
+    <div class="row" style="margin-top:24px">
+      <button class="btn btn-primary" style="flex:1" onclick="go('intro')">Start AI Interview<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <button class="btn btn-ghost" onclick="requestExit()">Cancel</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SCREEN 2 — INTRODUCTION ================= -->
+<section class="screen" data-screen="intro">
+  <div class="mid">
+    <div class="eyebrow">Welcome</div>
+    <h1 class="h-title">Your AI interview, explained</h1>
+    <p class="lead">Here's exactly what to expect before you start — no surprises.</p>
+
+    <div class="grid-2" style="margin-top:22px">
+      <div class="card pad" style="padding:20px"><div class="ic" style="margin-bottom:10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div><div style="font-weight:700;font-size:15px">Tailored to this job</div><p style="font-size:13.5px;color:var(--muted);margin-top:4px">Questions are generated from this specific job description — not a generic quiz.</p></div>
+      <div class="card pad" style="padding:20px"><div class="ic" style="margin-bottom:10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/></svg></div><div style="font-weight:700;font-size:15px">AI evaluates responses</div><p style="font-size:13.5px;color:var(--muted);margin-top:4px">Your answers are scored consistently, with human review on every decision.</p></div>
+      <div class="card pad" style="padding:20px"><div class="ic" style="margin-bottom:10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div><div style="font-weight:700;font-size:15px">Recorded & screen-shared</div><p style="font-size:13.5px;color:var(--muted);margin-top:4px">Video, audio and your screen are recorded for review. Your data stays private.</p></div>
+      <div class="card pad" style="padding:20px"><div class="ic" style="margin-bottom:10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 3v6h6"/></svg></div><div style="font-weight:700;font-size:15px">Cannot be restarted</div><p style="font-size:13.5px;color:var(--muted);margin-top:4px">Once you begin, the interview runs to the end. Find a quiet spot first.</p></div>
+    </div>
+
+    <div class="card pad" style="margin-top:14px;display:flex;gap:14px;flex-wrap:wrap;justify-content:space-around;text-align:center;padding:22px">
+      <div><div style="font-size:24px;font-weight:800">~15–18<span style="font-size:14px;color:var(--muted)"> min</span></div><div style="font-size:12.5px;color:var(--muted)">Estimated duration</div></div>
+      <div style="width:1px;background:var(--line-2)"></div>
+      <div><div style="font-size:24px;font-weight:800">10</div><div style="font-size:12.5px;color:var(--muted)">Total questions</div></div>
+      <div style="width:1px;background:var(--line-2)"></div>
+      <div><div style="font-size:24px;font-weight:800;color:var(--rec)">REC</div><div style="font-size:12.5px;color:var(--muted)">Video · Audio · Screen</div></div>
+    </div>
+
+    <div class="notice warn" style="margin-top:14px"><span class="ni"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 8v5M12 16h.01"/></svg></span><span>Stay in a quiet, well-lit environment. Avoid interruptions — leaving the interview may end it.</span></div>
+
+    <div class="row" style="margin-top:22px">
+      <button class="btn btn-ghost" onclick="go('apply')">Back</button>
+      <button class="btn btn-primary" style="flex:1" onclick="go('permissions')">Continue<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SCREEN 3 — PERMISSIONS ================= -->
+<section class="screen" data-screen="permissions">
+  <div class="narrow">
+    <div class="eyebrow">Step 1 of 2 · Setup</div>
+    <h1 class="h-title">Grant permissions</h1>
+    <p class="lead">We need access to your camera, microphone, and screen. Approve each one to continue.</p>
+
+    <div style="margin-top:22px" id="permList"></div>
+
+    <div class="notice info" style="margin-top:14px"><span class="ni"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span><span>Access is used only during this interview. You can revoke it in your browser at any time.</span></div>
+
+    <div class="row" style="margin-top:22px">
+      <button class="btn btn-ghost" onclick="go('intro')">Back</button>
+      <button class="btn btn-primary" style="flex:1" id="permContinue" disabled onclick="go('device')">Continue<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SCREEN 4 — DEVICE CHECK ================= -->
+<section class="screen" data-screen="device">
+  <div class="mid">
+    <div class="eyebrow">Step 2 of 2 · Setup</div>
+    <h1 class="h-title">Device check</h1>
+    <p class="lead">Let's make sure everything works before you begin.</p>
+
+    <div class="grid-2" style="margin-top:22px;align-items:start">
+      <div class="card pad" style="padding:18px">
+        <div class="cam"><div class="silh"><svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></div><div class="scan"></div><div class="tag"><span class="dot-rec"></span>Camera preview</div></div>
+        <div style="margin-top:16px">
+          <div style="font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:7px;display:flex;justify-content:space-between"><span>Microphone input</span><span id="micLbl" style="color:var(--success-600);font-weight:700">Good</span></div>
+          <div class="meter"><i id="micBar"></i></div>
+        </div>
+      </div>
+      <div class="card pad" style="padding:20px">
+        <div id="deviceChecklist"></div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:22px">
+      <button class="btn btn-ghost" onclick="go('permissions')">Back</button>
+      <button class="btn btn-primary" style="flex:1" id="deviceCta" disabled onclick="go('identity')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Everything Looks Good</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SCREEN 5 — IDENTITY ================= -->
+<section class="screen" data-screen="identity">
+  <div class="narrow">
+    <div class="eyebrow">Confirm your details</div>
+    <h1 class="h-title">Before you start</h1>
+    <p class="lead">Confirm who you are and the role you're interviewing for.</p>
+
+    <div class="card pad" style="margin-top:22px">
+      <div style="display:flex;align-items:center;gap:16px">
+        <div style="position:relative"><img src="https://i.pravatar.cc/120?img=15" style="width:64px;height:64px;border-radius:16px;object-fit:cover"/><span style="position:absolute;right:-4px;bottom:-4px;width:24px;height:24px;border-radius:50%;background:var(--success);border:3px solid #fff;display:grid;place-items:center;color:#fff"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span></div>
+        <div style="flex:1"><div style="font-size:12px;color:var(--muted);font-weight:600">Full name</div><div style="font-size:18px;font-weight:800">Jordan Avery</div><div style="font-size:12.5px;color:var(--muted)">jordan.avery@email.com</div></div>
+        <button class="tb-btn">Verify photo</button>
+      </div>
+      <div style="border-top:1px solid var(--line-2);margin:18px 0"></div>
+      <div class="row between"><div><div style="font-size:12px;color:var(--muted);font-weight:600">Interviewing for</div><div style="font-size:15px;font-weight:700">Senior Product Designer · Aperture Labs</div></div><span class="ic" style="width:40px;height:40px;font-weight:800">A</span></div>
+    </div>
+
+    <div style="margin-top:16px" id="agreeList"></div>
+
+    <div class="row" style="margin-top:22px">
+      <button class="btn btn-ghost" onclick="go('device')">Back</button>
+      <button class="btn btn-primary" style="flex:1" id="identityCta" disabled onclick="go('rules')">Start Interview<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SCREEN 6 — RULES ================= -->
+<section class="screen" data-screen="rules">
+  <div class="mid" style="text-align:center">
+    <div class="eyebrow" style="margin:0 auto">A few ground rules</div>
+    <h1 class="h-title">Keep these in mind</h1>
+    <p class="lead" style="margin:0 auto">Breaking a rule may flag or end your interview.</p>
+
+    <div class="grid-2" style="margin-top:24px;text-align:left" id="rulesGrid"></div>
+
+    <div class="card pad" style="margin-top:20px;display:flex;align-items:center;gap:20px;justify-content:center">
+      <div style="text-align:left"><div style="font-size:14px;font-weight:700">Ready? Your interview begins in</div><div style="font-size:12.5px;color:var(--muted)">The timer starts automatically.</div></div>
+      <div id="countdown" style="width:66px;height:66px;border-radius:50%;background:var(--primary-50);color:var(--primary);display:grid;place-items:center;font-size:28px;font-weight:800">3</div>
+    </div>
+
+    <div class="row" style="margin-top:22px;justify-content:center">
+      <button class="btn btn-ghost" onclick="stopCountdown();go('identity')">Back</button>
+      <button class="btn btn-primary" id="beginBtn" onclick="beginNow()">Begin now</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SCREEN 7 — PREPARING ================= -->
+<section class="screen" data-screen="preparing">
+  <div class="narrow" style="text-align:center">
+    <div class="ring" id="prepRing"><div class="in" id="prepPct" style="font-size:24px">0%</div></div>
+    <h1 class="h-title" style="margin-top:26px">Preparing your interview</h1>
+    <p class="lead" style="margin:0 auto">Our AI is building questions from the job description. This takes a few seconds.</p>
+    <div class="card pad" style="margin-top:24px;text-align:left" id="prepMsgs"></div>
+  </div>
+</section>
+
+<!-- ================= SCREEN 8 — INTERVIEW ================= -->
+<section class="screen" data-screen="interview">
+  <div class="ind-bar" style="margin-bottom:16px" id="indBar"></div>
+  <div class="iv-shell">
+    <!-- left -->
+    <div class="q-card">
+      <div class="q-top">
+        <div class="assistant"><span class="ava" id="ava"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/></svg></span><div><div style="font-size:14px;font-weight:700">AI Interview Assistant</div><div class="qnum" id="qnum">Question 1 of 10</div></div></div>
+        <div class="timepill mono" id="ivClock">00:00</div>
+      </div>
+      <div class="q-progress"><i id="qbar" style="width:10%"></i></div>
+
+      <div class="q-text" id="qText">Loading question…</div>
+      <button class="q-play" id="qPlay" onclick="replayVoice()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14"/></svg><span id="qPlayLbl">AI is asking…</span></button>
+
+      <div class="q-foot">
+        <div class="timepill mono" id="phaseTimer"><span class="d dot-rec" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--warn)"></span><span id="phaseLbl">Thinking time</span> · <span id="phaseTime">00:08</span></div>
+        <div class="row">
+          <button class="btn btn-ghost" style="height:44px" id="pauseBtn" onclick="togglePause()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>Pause</button>
+          <button class="btn btn-primary" style="height:44px" id="nextBtn" disabled onclick="nextQuestion()"><span id="nextLbl">Next Question</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <!-- right -->
+    <div class="side">
+      <div class="card" style="padding:14px">
+        <div class="cam" style="aspect-ratio:4/3"><div class="silh"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="9" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></div><div class="tag"><span class="dot-rec"></span>You · Live</div></div>
+        <div class="ind-bar" style="margin-top:12px">
+          <span class="ind"><span class="d"></span>Camera</span>
+          <span class="ind"><span class="d"></span>Screen share</span>
+        </div>
+      </div>
+      <div class="card" style="padding:16px">
+        <div style="font-size:12.5px;font-weight:700;color:var(--muted);display:flex;justify-content:space-between;margin-bottom:8px"><span>Audio level</span><span id="audLbl" style="color:var(--success-600)">Speaking</span></div>
+        <div class="meter"><i id="audBar" style="width:20%"></i></div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);margin:16px 0 6px">Live transcript</div>
+        <div class="transcript" id="transcript">Your answer will appear here as you speak…</div>
+      </div>
+      <button class="btn btn-danger btn-block" style="height:44px" onclick="requestEndInterview()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="5" width="14" height="14" rx="2"/></svg>End Interview</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SCREEN 9 — PROCESSING ================= -->
+<section class="screen" data-screen="processing">
+  <div class="narrow" style="text-align:center">
+    <div class="ring" id="procRing"><div class="in" id="procPct" style="font-size:24px">0%</div></div>
+    <h1 class="h-title" style="margin-top:26px">Submitting your interview</h1>
+    <p class="lead" style="margin:0 auto">Please keep this tab open. This usually takes under a minute.</p>
+    <div class="card pad" style="margin-top:24px;text-align:left" id="procMsgs"></div>
+  </div>
+</section>
+
+<!-- ================= SCREEN 10 — COMPLETED ================= -->
+<section class="screen" data-screen="completed">
+  <div class="narrow" style="text-align:center">
+    <div style="width:82px;height:82px;border-radius:26px;margin:0 auto;background:var(--success-bg);color:var(--success-600);display:grid;place-items:center"><svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+    <h1 class="h-title" style="margin-top:20px">Interview submitted 🎉</h1>
+    <p class="lead" style="margin:6px auto 0">Your application to <b style="color:var(--ink)">Aperture Labs</b> was submitted successfully. Nice work — that's the hard part done.</p>
+
+    <div class="card pad" style="margin-top:24px">
+      <div class="grid-2">
+        <div class="stat-tile"><div class="n">10<span style="font-size:15px;color:var(--muted)">/10</span></div><div class="l">Questions completed</div></div>
+        <div class="stat-tile"><div class="n mono" id="doneDuration">16:12</div><div class="l">Interview duration</div></div>
+        <div class="stat-tile"><div class="n mono" id="doneTime" style="font-size:20px">Just now</div><div class="l">Submission time</div></div>
+        <div class="stat-tile"><div class="n" style="font-size:20px">2–3 days</div><div class="l">Estimated review time</div></div>
+      </div>
+    </div>
+    <div class="notice ok" style="margin-top:14px;justify-content:center"><span class="ni"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 7v5l3 2"/></svg></span><span>We'll email you when the hiring team reviews your interview.</span></div>
+
+    <button class="btn btn-primary" style="margin-top:22px" onclick="go('dashboard')"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Return to Dashboard</button>
+  </div>
+</section>
+
+<!-- ================= DASHBOARD (return target) ================= -->
+<section class="screen" data-screen="dashboard">
+  <div class="mid">
+    <div class="eyebrow">Your applications</div>
+    <h1 class="h-title">Application status</h1>
+    <p class="lead">Track where your interview is in the review process.</p>
+
+    <div class="card pad" style="margin-top:22px">
+      <div class="row between" style="margin-bottom:18px">
+        <div style="display:flex;align-items:center;gap:12px"><span class="ic" style="width:44px;height:44px;font-weight:800">A</span><div><div style="font-size:16px;font-weight:800">Senior Product Designer</div><div style="font-size:12.5px;color:var(--muted)">Aperture Labs · Applied just now</div></div></div>
+        <span class="chip a" id="dashStatusChip">Under Review</span>
+      </div>
+      <div class="tl" id="statusTimeline"></div>
+    </div>
+
+    <div class="card pad" style="margin-top:14px;display:flex;align-items:center;justify-content:space-between;gap:16px">
+      <div><div style="font-weight:700;font-size:15px">Interview evaluation ready</div><div style="font-size:13px;color:var(--muted)">See your AI score, feedback, and per-question breakdown.</div></div>
+      <button class="btn btn-primary" style="height:44px" onclick="go('detail')">View details<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= INTERVIEW DETAIL / EVALUATION ================= -->
+<section class="screen" data-screen="detail">
+  <div class="mid">
+    <button class="tb-btn" style="margin-bottom:16px" onclick="go('dashboard')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Back to dashboard</button>
+
+    <div class="card pad">
+      <div class="row between" style="align-items:flex-start;gap:20px;flex-wrap:wrap">
+        <div>
+          <div class="eyebrow" style="background:var(--success-bg);color:var(--success-600)">Evaluation complete</div>
+          <h1 style="font-size:24px;font-weight:800;margin:12px 0 4px">Senior Product Designer</h1>
+          <div style="font-size:13.5px;color:var(--muted)">Aperture Labs · Interviewed today · 16:12 · <b style="color:var(--success-600)">Completed</b></div>
+        </div>
+        <div class="score-ring" id="scoreRing"><div class="in"><b id="scoreNum">0</b><span>Overall score</span></div></div>
+      </div>
+      <div class="grid-2" style="margin-top:20px;grid-template-columns:repeat(4,1fr)">
+        <div class="stat-tile"><div class="n" id="accNum">0%</div><div class="l">Overall accuracy</div></div>
+        <div class="stat-tile"><div class="n">10</div><div class="l">Questions attempted</div></div>
+        <div class="stat-tile"><div class="n">10</div><div class="l">Questions answered</div></div>
+        <div class="stat-tile"><div class="n" style="color:var(--success-600)">Strong</div><div class="l">Performance band</div></div>
+      </div>
+    </div>
+
+    <h3 style="font-size:18px;font-weight:800;margin:26px 0 12px">AI summary</h3>
+    <div class="grid-2">
+      <div class="card pad" style="padding:20px"><div style="font-size:13px;font-weight:700;color:var(--success-600);margin-bottom:10px;display:flex;align-items:center;gap:7px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11v10M15 5.9 14 11h6a2 2 0 0 1 2 2.3l-1.4 6A2 2 0 0 1 18.6 21H7"/></svg>Strengths</div><ul style="margin:0;padding-left:18px;font-size:13.5px;color:var(--ink-2);line-height:1.7"><li>Clear, structured storytelling with strong outcomes.</li><li>Deep understanding of design-system scaling.</li><li>Confident, well-paced verbal communication.</li></ul></div>
+      <div class="card pad" style="padding:20px"><div style="font-size:13px;font-weight:700;color:#B26A16;margin-bottom:10px;display:flex;align-items:center;gap:7px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 8v5M12 16h.01"/></svg>Areas to improve</div><ul style="margin:0;padding-left:18px;font-size:13.5px;color:var(--ink-2);line-height:1.7"><li>Quantify impact with more concrete metrics.</li><li>Tighten answers on cross-team conflict handling.</li><li>Add specifics on measuring design success.</li></ul></div>
+    </div>
+    <div class="notice ok" style="margin-top:14px"><span class="ni"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg></span><span><b>Overall performance:</b> A strong interview. Communication and craft are clear standouts; sharpening measurable impact would push this to exceptional.</span></div>
+
+    <h3 style="font-size:18px;font-weight:800;margin:26px 0 12px">Question breakdown</h3>
+    <div id="breakdown"></div>
+  </div>
+</section>
+
+<div class="footer-note">TalentFlow AI · Interactive interview prototype — permissions, devices and AI processing are simulated for demonstration.</div>
+</main>
+
+<!-- ================= MODAL ================= -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="mh"><div class="mi" id="mIcon"></div><h3 id="mTitle"></h3><p id="mText"></p></div>
+    <div class="mb"><div class="steps" id="mSteps" style="display:none"></div><div class="row" id="mActions"></div></div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   TalentFlow AI — Interview Experience (prototype logic)
+   ============================================================ */
+const SETUP_STEPS=[
+  ['apply','Confirm'],['intro','Intro'],['permissions','Permissions'],
+  ['device','Device'],['identity','Identity'],['rules','Rules'],['preparing','Prepare']
+];
+let current='apply';
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+
+/* ---------- router ---------- */
+function go(id){
+  clearAllTimers();
+  $$('.screen').forEach(s=>s.classList.remove('on'));
+  const el=document.querySelector('[data-screen="'+id+'"]');
+  if(el)el.classList.add('on');
+  current=id;
+  window.scrollTo({top:0,behavior:'instant'});
+  renderStepper();
+  closeMenu();
+  if(onEnter[id])onEnter[id]();
+}
+function renderStepper(){
+  const setupIdx=SETUP_STEPS.findIndex(s=>s[0]===current);
+  const wrap=$('#stepper');
+  if(setupIdx===-1){wrap.style.display='none';return;}
+  wrap.style.display='flex';
+  wrap.innerHTML=SETUP_STEPS.map((s,i)=>{
+    const cls=i<setupIdx?'done':(i===setupIdx?'active':'');
+    return `<div class="st ${cls}"><span class="line"></span><span class="dot">${i<setupIdx?'✓':i+1}</span><span class="lbl">${s[1]}</span></div>`;
+  }).join('');
+}
+
+/* ---------- timers registry ---------- */
+let timers=[];
+function T(fn,ms){const id=setTimeout(fn,ms);timers.push(id);return id;}
+function I(fn,ms){const id=setInterval(fn,ms);timers.push(id);return id;}
+function clearAllTimers(){timers.forEach(clearTimeout);timers.forEach(clearInterval);timers=[];stopCountdown();}
+
+/* ============================================================
+   SCREEN 3 — PERMISSIONS
+   ============================================================ */
+const PERMS=[
+  {id:'camera',t:'Camera',s:'For your video interview recording',ic:'<circle cx="12" cy="13" r="4"/><path d="M2 8a2 2 0 0 1 2-2h2l2-2h4l2 2h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z"/>'},
+  {id:'mic',t:'Microphone',s:'To capture and evaluate your answers',ic:'<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/>'},
+  {id:'screen',t:'Screen Sharing',s:'Required for interview integrity',ic:'<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>'}
+];
+let permState={};
+function renderPerms(){
+  permState={};
+  $('#permList').innerHTML=PERMS.map(p=>`
+    <div class="perm" id="perm-${p.id}">
+      <span class="pic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p.ic}</svg></span>
+      <div class="meta"><div class="t">${p.t}</div><div class="s">${p.s}</div></div>
+      <button class="btn btn-soft" style="height:40px;padding:0 16px;font-size:13.5px" id="grant-${p.id}" onclick="grantPerm('${p.id}')">Grant</button>
+      <span class="st-pill" id="pill-${p.id}" style="display:none">Granted</span>
+    </div>`).join('');
+  $('#permContinue').disabled=true;
+}
+function grantPerm(id){
+  const btn=$('#grant-'+id);
+  btn.innerHTML='<span class="d dot-rec" style="width:14px;height:14px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite;display:inline-block"></span>';
+  btn.disabled=true;
+  T(()=>{
+    permState[id]=true;
+    $('#perm-'+id).classList.add('granted');
+    btn.style.display='none';
+    const pill=$('#pill-'+id);pill.style.display='inline-flex';
+    pill.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px"><path d="M20 6L9 17l-5-5"/></svg>Granted';
+    if(PERMS.every(p=>permState[p.id]))$('#permContinue').disabled=false;
+  },850);
+}
+
+/* ============================================================
+   SCREEN 4 — DEVICE CHECK
+   ============================================================ */
+const DEVCHECKS=[
+  {t:'Camera',d:'Video stream detected · 720p'},
+  {t:'Microphone',d:'Input level healthy'},
+  {t:'Speaker test',d:'Playing test tone…'},
+  {t:'Internet connection',d:'Stable · 48 Mbps'},
+  {t:'Browser compatibility',d:'Chrome 121 · supported'}
+];
+function runDevice(){
+  $('#deviceCta').disabled=true;
+  $('#deviceChecklist').innerHTML=DEVCHECKS.map((c,i)=>`
+    <div class="chk-item" id="dc-${i}"><span class="cs"></span><div class="ct"><div class="t">${c.t}</div><div class="d">Checking…</div></div></div>`).join('');
+  // animate mic meter
+  I(()=>{const v=25+Math.random()*55;$('#micBar').style.width=v+'%';},220);
+  let i=0;
+  const step=()=>{
+    if(i>0)mark(i-1,'pass');
+    if(i<DEVCHECKS.length){$('#dc-'+i).classList.add('run');T(step,760);i++;}
+    else $('#deviceCta').disabled=false;
+  };
+  step();
+  function mark(k,st){const el=$('#dc-'+k);el.classList.remove('run');el.classList.add(st);el.querySelector('.d').textContent=DEVCHECKS[k].d;el.querySelector('.cs').innerHTML=st==='pass'?'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>':'!';}
+}
+
+/* ============================================================
+   SCREEN 5 — IDENTITY
+   ============================================================ */
+const AGREEMENTS=[
+  'I understand this interview will be recorded (video, audio and screen).',
+  'I understand only <b>one attempt</b> is allowed for this job.',
+  'I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.'
+];
+let agreeState=[];
+function renderAgree(){
+  agreeState=AGREEMENTS.map(()=>false);
+  $('#agreeList').innerHTML=AGREEMENTS.map((a,i)=>`
+    <label class="agree" id="ag-${i}" onclick="toggleAgree(${i})">
+      <span class="box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+      <span class="txt">${a}</span></label>`).join('');
+  $('#identityCta').disabled=true;
+}
+function toggleAgree(i){agreeState[i]=!agreeState[i];$('#ag-'+i).classList.toggle('on',agreeState[i]);$('#identityCta').disabled=!agreeState.every(Boolean);}
+
+/* ============================================================
+   SCREEN 6 — RULES + COUNTDOWN
+   ============================================================ */
+const RULES=[
+  ['Keep your camera on','video','Stay visible for the entire interview.'],
+  ['Do not refresh the page','refresh','Refreshing will end your session.'],
+  ['Do not switch tabs','tab','Leaving the tab may be flagged.'],
+  ['Do not close the browser','x','Your progress cannot be recovered.'],
+  ['Ensure good lighting','sun','Face a light source, not a window behind you.'],
+  ['Speak clearly','mic','Answer out loud at a steady pace.'],
+  ['Keep screen sharing active','screen','Sharing must stay on throughout.']
+];
+const RULE_ICONS={
+  video:'<path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/>',
+  refresh:'<path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 3v6h6"/>',
+  tab:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/>',
+  x:'<path d="M18 6L6 18M6 6l12 12"/>',
+  sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.5 1.5M17.5 17.5 19 19M19 5l-1.5 1.5M6.5 17.5 5 19"/>',
+  mic:'<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/>',
+  screen:'<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>'
+};
+let cdTimer=null;
+function renderRules(){
+  $('#rulesGrid').innerHTML=RULES.map(r=>`
+    <div class="card pad" style="padding:16px;display:flex;gap:13px;align-items:flex-start">
+      <span class="ic" style="flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${RULE_ICONS[r[1]]}</svg></span>
+      <div><div style="font-weight:700;font-size:14px">${r[0]}</div><div style="font-size:12.5px;color:var(--muted);margin-top:2px">${r[2]}</div></div>
+    </div>`).join('');
+  startCountdown();
+}
+function startCountdown(){
+  let n=3;$('#countdown').textContent=n;
+  cdTimer=setInterval(()=>{n--;if(n<=0){stopCountdown();beginNow();}else{$('#countdown').textContent=n;}},1000);
+}
+function stopCountdown(){if(cdTimer){clearInterval(cdTimer);cdTimer=null;}}
+function beginNow(){stopCountdown();go('preparing');}
+
+/* ============================================================
+   SCREEN 7 — PREPARING (loading sequence)
+   ============================================================ */
+const PREP_MSGS=['Reading job description…','Analyzing required skills…','Preparing personalized interview…','Generating AI questions…','Almost ready…'];
+function runPreparing(){ runLoader('#prepMsgs','#prepRing','#prepPct',PREP_MSGS,()=>startInterview()); }
+
+/* generic loader used by preparing + processing */
+function runLoader(msgSel,ringSel,pctSel,msgs,done){
+  const box=$(msgSel);
+  box.innerHTML=msgs.map((m,i)=>`<div class="load-msg" id="${msgSel.slice(1)}-m${i}"><span class="m"></span>${m}</div>`).join('');
+  let i=0,pct=0;const per=100/msgs.length;
+  const tick=()=>{
+    if(i>0){const p=$(`${msgSel}-m${i-1}`);p.classList.remove('on');p.classList.add('done');p.querySelector('.m').innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';}
+    if(i<msgs.length){
+      $(`${msgSel}-m${i}`).classList.add('on');
+      const target=Math.round(per*(i+1));
+      const grow=I(()=>{if(pct<target){pct++;$(ringSel).style.setProperty('--v',pct);$(pctSel).textContent=pct+'%';}else clearInterval(grow);},14);
+      i++;T(tick,1100);
+    } else {$(ringSel).style.setProperty('--v',100);$(pctSel).textContent='100%';T(done,500);}
+  };
+  tick();
+}
+
+/* ============================================================
+   SCREEN 8 — INTERVIEW ENGINE
+   ============================================================ */
+const QUESTIONS=[
+  'Walk me through a product design problem you recently solved end to end.',
+  'How do you approach scaling a design system across multiple product teams?',
+  'Describe a time you disagreed with an engineer or PM. How did you resolve it?',
+  'How do you balance user needs against tight business or technical constraints?',
+  'Tell me about a design decision you made using data or research.',
+  'How do you ensure accessibility is built into your design process?',
+  'Describe how you would redesign our onboarding flow to lift activation.',
+  'What does great cross-functional collaboration look like to you?',
+  'How do you measure whether a design was actually successful?',
+  'Where do you want to grow as a designer over the next two years?'
+];
+const TOTAL=QUESTIONS.length;
+let qIndex=0, ivSeconds=0, ivClockTimer=null, phaseTimer=null, paused=false, phase='think', startedAt=null;
+const THINK=8, ANSWER=90;
+
+function startInterview(){
+  qIndex=0;ivSeconds=0;paused=false;startedAt=Date.now();
+  go('interview'); // switch screen first (this clears the loader's timers)
+  renderIndicators();
+  ivClockTimer=I(()=>{if(!paused){ivSeconds++;$('#ivClock').textContent=fmt(ivSeconds);}},1000);
+  I(()=>{if(!paused&&phase==='answer'){const v=30+Math.random()*60;$('#audBar').style.width=v+'%';}},200);
+  loadQuestion();
+}
+function loadQuestion(){
+  const isLast=qIndex===TOTAL-1;
+  $('#qnum').textContent=`Question ${qIndex+1} of ${TOTAL}`;
+  $('#qText').textContent=QUESTIONS[qIndex];
+  $('#qbar').style.width=((qIndex+1)/TOTAL*100)+'%';
+  $('#nextBtn').disabled=true;
+  $('#nextLbl').textContent=isLast?'Finish Interview':'Next Question';
+  $('#transcript').innerHTML='Listening…<span class="cursor"></span>';
+  $('#ava').classList.add('speaking');
+  $('#qPlayLbl').textContent='AI is asking…';
+  setIndicator('ai','AI Speaking','#F5C400');
+  phase='ask';
+  // AI "speaks" the question, then thinking time
+  clearTimeout(phaseTimer);
+  T(()=>{$('#ava').classList.remove('speaking');$('#qPlayLbl').textContent='Replay question';startPhase('think',THINK);},1600);
+}
+function startPhase(p,secs){
+  phase=p;let left=secs;
+  const lbl=$('#phaseLbl'),pt=$('#phaseTime');
+  if(p==='think'){lbl.textContent='Thinking time';setIndicator('ai','AI Listening','#22A06B');$('#audLbl').textContent='Get ready';}
+  else{lbl.textContent='Recording answer';setIndicator('ai','Recording','#E05656');$('#audLbl').textContent='Speaking';beginTranscript();}
+  pt.textContent=fmt(left);
+  clearInterval(phaseTimer);
+  phaseTimer=I(()=>{
+    if(paused)return;
+    left--;pt.textContent=fmt(left);
+    $('#phaseTimer').classList.toggle('warn',left<=5);
+    if(p==='think'&&left<=0){startPhase('answer',ANSWER);}
+    else if(p==='answer'){
+      $('#nextBtn').disabled=false; // allowed once recording
+      if(left<=0){clearInterval(phaseTimer);/*auto-stop, still let them press next*/}
+    }
+  },1000);
+  if(p==='answer')$('#nextBtn').disabled=false;
+}
+const SAMPLE="I'd start by framing the problem and the user need, align on success metrics with the team, explore a few directions, then validate with quick research before committing…";
+function beginTranscript(){
+  const words=SAMPLE.split(' ');let w=0;const box=$('#transcript');box.innerHTML='';
+  const push=I(()=>{if(paused||phase!=='answer'){return;}if(w<words.length){box.innerHTML=words.slice(0,++w).join(' ')+'<span class="cursor"></span>';}else clearInterval(push);},260);
+}
+function nextQuestion(){
+  if(qIndex>=TOTAL-1){endInterviewToProcessing();return;}
+  qIndex++;loadQuestion();
+}
+function replayVoice(){$('#ava').classList.add('speaking');$('#qPlayLbl').textContent='AI is asking…';T(()=>{$('#ava').classList.remove('speaking');$('#qPlayLbl').textContent='Replay question';},1400);}
+function togglePause(){
+  paused=!paused;
+  $('#pauseBtn').innerHTML=paused
+    ?'<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Resume'
+    :'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>Pause';
+}
+function fmt(s){const m=Math.floor(s/60),ss=s%60;return String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0');}
+
+/* live indicators */
+const INDS=[
+  {id:'rec',t:'Recording',cls:'rec'},
+  {id:'cam',t:'Camera Active',cls:''},
+  {id:'screen',t:'Screen Sharing',cls:''},
+  {id:'net',t:'Internet Stable',cls:''},
+  {id:'ai',t:'AI Listening',cls:'think'}
+];
+function renderIndicators(){
+  $('#indBar').innerHTML=INDS.map(x=>`<span class="ind ${x.cls}" id="ind-${x.id}"><span class="d"></span>${x.t}</span>`).join('');
+}
+function setIndicator(id,text,color){const el=$('#ind-'+id);if(!el)return;el.querySelector('.d').style.background=color;el.childNodes[1].nodeValue=text;el.className='ind';el.style.color=color==='#E05656'?'#A00823':'';}
+
+function endInterviewToProcessing(){clearInterval(ivClockTimer);clearInterval(phaseTimer);go('processing');}
+
+/* ============================================================
+   SCREEN 9 — PROCESSING
+   ============================================================ */
+const PROC_MSGS=['Uploading recording…','Processing transcript…','Evaluating responses…','Calculating accuracy…','Generating AI insights…'];
+function runProcessing(){
+  $('#doneDuration').textContent=fmt(ivSeconds||972);
+  runLoader('#procMsgs','#procRing','#procPct',PROC_MSGS,()=>{markStatus(2);go('completed');});
+}
+
+/* ============================================================
+   SCREEN 10 — COMPLETED
+   ============================================================ */
+function runCompleted(){
+  const t=new Date();
+  $('#doneTime').textContent=t.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+}
+
+/* ============================================================
+   DASHBOARD status timeline
+   ============================================================ */
+const STATUS=[
+  {t:'Application submitted',d:'Just now',done:true},
+  {t:'Interview completed',d:'Just now',done:true},
+  {t:'AI processing complete',d:'Moments ago',done:true},
+  {t:'Application under review',d:'Awaiting hiring team',active:true},
+];
+let statusLevel=3;
+function markStatus(n){statusLevel=Math.max(statusLevel,n);}
+function renderStatus(){
+  $('#statusTimeline').innerHTML=STATUS.map((s,i)=>{
+    const cls=s.done?'done':(s.active?'active':'pending');
+    const ic=s.done?'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>':(s.active?'<span class="d dot-rec" style="width:8px;height:8px;border-radius:50%;background:#fff"></span>':(i+1));
+    return `<div class="step ${cls}"><span class="bar"></span><span class="nod">${ic}</span><div class="info"><div class="t">${s.t}</div><div class="d">${s.d}</div></div></div>`;
+  }).join('');
+}
+
+/* ============================================================
+   DETAIL — evaluation
+   ============================================================ */
+const BREAKDOWN=QUESTIONS.map((q,i)=>{
+  const scores=[92,88,79,84,90,72,86,81,94,88];
+  const sc=scores[i];const band=sc>=85?'g':(sc>=75?'a':'r');
+  const fb=['Excellent structure and a clear outcome — a model answer.','Strong systems thinking; add a concrete adoption metric.','Good resolution; describe the trade-off you accepted more explicitly.','Balanced reasoning; name the constraint that drove the call.','Great use of research to justify the decision.','Solid, but tie accessibility to a measurable result.','Actionable ideas; prioritize them by expected impact.','Clear collaboration model with real examples.','Outstanding — precise success metrics and follow-through.','Thoughtful growth areas that match the role.'][i];
+  return {q,sc,band,fb,resp:'Candidate gave a structured, example-led response covering context, actions, and outcome.'};
+});
+function renderDetail(){
+  const overall=86, acc=88;
+  animateNum('#scoreNum',overall,()=>{});
+  $('#scoreRing').style.setProperty('--v',overall);
+  let a=0;const ai=setInterval(()=>{a+=3;if(a>=acc){a=acc;clearInterval(ai);}$('#accNum').textContent=a+'%';},20);
+  $('#breakdown').innerHTML=BREAKDOWN.map((b,i)=>`
+    <div class="acc" id="acc-${i}">
+      <div class="head" onclick="document.getElementById('acc-${i}').classList.toggle('open')">
+        <span class="qn">${i+1}</span><span class="qt">${b.q}</span>
+        <span class="sc chip ${b.band}">${b.sc}%</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9E9EB0" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="body">
+        <div class="lab">Your response</div><div>${b.resp}</div>
+        <div class="lab">Accuracy score</div><div><span class="chip ${b.band}">${b.sc}%</span></div>
+        <div class="lab">AI feedback</div><div>${b.fb}</div>
+      </div>
+    </div>`).join('');
+}
+function animateNum(sel,to,cb){let n=0;const el=$(sel);const t=setInterval(()=>{n+=2;if(n>=to){n=to;clearInterval(t);cb&&cb();}el.textContent=n;},18);}
+
+/* ============================================================
+   EXIT / END confirmations + ERROR modals
+   ============================================================ */
+const overlay=$('#overlay');
+function modal({icon='danger',title,text,steps,actions}){
+  $('#mIcon').className='mi '+icon;
+  $('#mIcon').innerHTML=MICONS[icon]||MICONS.danger;
+  $('#mTitle').textContent=title;$('#mText').innerHTML=text;
+  const s=$('#mSteps');
+  if(steps){s.style.display='block';s.innerHTML='<ol style="margin:0;padding-left:18px">'+steps.map(x=>'<li>'+x+'</li>').join('')+'</ol>';}else s.style.display='none';
+  $('#mActions').innerHTML=actions.map((a,i)=>`<button class="btn ${a.cls||'btn-ghost'}" style="height:44px;${a.full?'flex:1':''}" onclick="${a.fn}">${a.label}</button>`).join('');
+  overlay.classList.add('on');
+}
+function closeModal(){overlay.classList.remove('on');}
+const MICONS={
+  danger:'<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>',
+  warn:'<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>',
+  info:'<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-5M12 8h.01"/></svg>'
+};
+function requestExit(){
+  modal({icon:'warn',title:'Leave the interview?',
+    text:current==='interview'?'You have <b>one attempt only</b>. Leaving now will <b>end your interview</b> and it cannot be restarted.':'Your progress in setup will not be saved.',
+    actions:[{label:'Stay',cls:'btn-ghost',fn:'closeModal()'},{label:'Leave anyway',cls:'btn-danger',full:true,fn:'closeModal();go(\'apply\')'}]});
+}
+function requestEndInterview(){
+  modal({icon:'danger',title:'End interview early?',
+    text:'You\'ve answered <b>'+(qIndex+1)+' of '+TOTAL+'</b> questions. Ending now submits what you have — you <b>cannot</b> come back.',
+    actions:[{label:'Keep going',cls:'btn-ghost',fn:'closeModal()'},{label:'End & submit',cls:'btn-danger',full:true,fn:'closeModal();endInterviewToProcessing()'}]});
+}
+
+/* --- dedicated error / edge states --- */
+const ERRORS={
+  camDenied:{icon:'danger',title:'Camera permission denied',text:'We can\'t run your interview without camera access.',steps:['Click the camera icon in your browser\'s address bar','Choose <b>Allow</b> for camera','Reload and grant again'],actions:[{label:'Try again',cls:'btn-primary',full:true,fn:'closeModal();go(\'permissions\')'}]},
+  micDenied:{icon:'danger',title:'Microphone permission denied',text:'Your answers can\'t be recorded without microphone access.',steps:['Open browser site settings','Set Microphone to <b>Allow</b>','Return and re-check permissions'],actions:[{label:'Try again',cls:'btn-primary',full:true,fn:'closeModal();go(\'permissions\')'}]},
+  screenStopped:{icon:'warn',title:'Screen sharing stopped',text:'Screen sharing must stay active for the whole interview. Your interview is <b>paused</b>.',actions:[{label:'End interview',cls:'btn-ghost',fn:'closeModal();endInterviewToProcessing()'},{label:'Resume sharing',cls:'btn-primary',full:true,fn:'closeModal()'}]},
+  netLost:{icon:'warn',title:'Connection lost',text:'We\'ve paused your interview and are trying to reconnect. Your progress is saved locally.',steps:['Check your Wi-Fi or cable','Stay on this page','We\'ll resume automatically'],actions:[{label:'Retry now',cls:'btn-primary',full:true,fn:'closeModal()'}]},
+  browser:{icon:'warn',title:'Browser not supported',text:'TalentFlow AI interviews need a recent <b>Chrome, Edge, or Safari</b> on desktop or tablet.',actions:[{label:'Got it',cls:'btn-primary',full:true,fn:'closeModal()'}]},
+  session:{icon:'info',title:'Session expired',text:'You were inactive too long and your secure session ended. No attempt was used.',actions:[{label:'Restart setup',cls:'btn-primary',full:true,fn:'closeModal();go(\'apply\')'}]},
+  upload:{icon:'danger',title:'Upload failed',text:'We couldn\'t upload your recording. Don\'t worry — it\'s safe on your device and we can retry.',actions:[{label:'Contact support',cls:'btn-ghost',fn:'closeModal()'},{label:'Retry upload',cls:'btn-primary',full:true,fn:'closeModal();go(\'processing\')'}]},
+  aiDown:{icon:'warn',title:'AI service temporarily unavailable',text:'Our evaluation service is busy. Your interview is submitted and we\'ll process it automatically.',actions:[{label:'Back to dashboard',cls:'btn-primary',full:true,fn:'closeModal();go(\'dashboard\')'}]}
+};
+function showError(key){modal(ERRORS[key]);closeMenu();}
+
+/* ============================================================
+   STATES MENU
+   ============================================================ */
+const SCREEN_LIST=[['apply','1 · Apply confirmation'],['intro','2 · Introduction'],['permissions','3 · Permissions'],['device','4 · Device check'],['identity','5 · Identity'],['rules','6 · Rules'],['preparing','7 · Preparing'],['interview','8 · Interview'],['processing','9 · Processing'],['completed','10 · Completed'],['dashboard','Dashboard status'],['detail','Interview detail']];
+const ERROR_LIST=[['camDenied','Camera denied'],['micDenied','Microphone denied'],['screenStopped','Screen sharing stopped'],['netLost','Internet lost'],['browser','Browser not supported'],['session','Session expired'],['upload','Upload failed'],['aiDown','AI service down']];
+function buildMenu(){
+  $('#menu-screens').innerHTML=SCREEN_LIST.map(s=>`<button onclick="go('${s[0]}')">${s[1]}</button>`).join('');
+  $('#menu-errors').innerHTML=ERROR_LIST.map(s=>`<button onclick="showError('${s[0]}')"><span style="width:7px;height:7px;border-radius:50%;background:var(--danger)"></span>${s[1]}</button>`).join('');
+}
+function toggleMenu(e){e.stopPropagation();$('#menu').classList.toggle('on');}
+function closeMenu(){$('#menu').classList.remove('on');}
+document.addEventListener('click',e=>{if(!$('#menu').contains(e.target)&&e.target.id!=='statesBtn')closeMenu();});
+
+/* ============================================================
+   ON-ENTER hooks
+   ============================================================ */
+const onEnter={
+  permissions:renderPerms, device:runDevice, identity:renderAgree, rules:renderRules,
+  preparing:runPreparing, processing:runProcessing, completed:runCompleted,
+  dashboard:renderStatus, detail:renderDetail
+};
+
+/* init */
+buildMenu();renderStepper();go('apply');
+</script>
+</body>
+</html>

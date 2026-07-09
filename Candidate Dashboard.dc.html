@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Content:wght@400;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; background:#FFFFFF; }
+  h1,h2,h3,h4,h5,h6 { font-family: 'Content', Georgia, serif; }
+  a { color:#1A0206; text-decoration:none; }
+  ::selection { background:#F3C9D0; }
+  @keyframes hn-bounce { 0%,80%,100% { transform: translateY(0); opacity:.5; } 40% { transform: translateY(-4px); opacity:1; } }
+</style>
+</helmet>
+
+<div style="--brand:{{ brand }}; --card-radius:{{ cardRadius }}; display:flex; min-height:100vh; background:#FFFFFF; color:#1A0206;">
+
+  <!-- SIDEBAR -->
+  <aside style="width:244px; flex-shrink:0; background:#fff; border-right:1px solid #ECECF1; position:sticky; top:0; height:100vh; display:flex; flex-direction:column; padding:20px 14px;">
+    <div style="display:flex; align-items:center; gap:11px; padding:6px 8px 22px;">
+      <img src="talentflow-logo.svg" alt="TalentFlow" style="height:28px; width:auto; display:block;" />
+    </div>
+    <!-- Role / workspace switcher -->
+    <div style="padding:0 4px 16px;">
+      <div style="font-size:10.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#9E9EB0; margin:0 4px 7px;">Workspace</div>
+      <div style="display:flex; gap:4px; padding:4px; background:#F2F2F6; border-radius:12px;">
+        <span style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:8px 0; border-radius:9px; font-size:13px; font-weight:700; background:#fff; color:#1A0206; box-shadow:0 1px 2px rgba(33,34,45,0.08);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Employee
+        </span>
+        <a href="Admin%20Dashboard.dc.html" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:8px 0; border-radius:9px; font-size:13px; font-weight:600; color:#5E5E6E; text-decoration:none;" style-hover="background:rgba(255,255,255,0.6); color:#1A0206;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l7 4v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+          Admin
+        </a>
+      </div>
+    </div>
+    <nav style="display:flex; flex-direction:column; gap:3px; flex:1;">
+      <sc-for list="{{ nav }}" as="n" hint-placeholder-count="8">
+        <div onClick="{{ n.onClick }}" style="display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:11px; cursor:pointer; font-size:14px; font-weight:600; background:{{ n.bg }}; color:{{ n.color }}; box-shadow:{{ n.shadow }};">
+          <span style="display:flex; flex-shrink:0;">{{ n.icon }}</span>
+          <span style="flex:1;">{{ n.label }}</span>
+          <sc-if value="{{ n.badge }}" hint-placeholder-val="{{ false }}"><span style="min-width:20px; height:20px; padding:0 6px; border-radius:999px; background:{{ n.badgeBg }}; color:{{ n.badgeColor }}; font-size:11px; font-weight:800; display:grid; place-items:center;">{{ n.badge }}</span></sc-if>
+        </div>
+      </sc-for>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main style="flex:1; min-width:0; display:flex; flex-direction:column;">
+    <!-- TOPBAR -->
+    <header style="position:sticky; top:0; z-index:20; background:rgba(244,244,247,0.85); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid #ECECF1; padding:14px 32px; display:flex; align-items:center; gap:20px;">
+      <div style="position:relative; flex:1; max-width:420px;">
+        <span style="position:absolute; left:14px; top:50%; transform:translateY(-50%); color:#9E9EB0; display:flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></span>
+        <input type="text" placeholder="Search jobs, companies, skills…" style="width:100%; height:42px; border:1px solid #E6E6EC; border-radius:12px; background:#fff; padding:0 14px 0 42px; font:400 14px Inter; color:#1A0206; outline:none;" style-focus="border-color:#D40A2E; box-shadow:0 0 0 4px rgba(212,10,46,0.15);" />
+      </div>
+      <div style="margin-left:auto; display:flex; align-items:center; gap:12px;">
+        <button onClick="{{ goNotifs }}" style="position:relative; width:42px; height:42px; border-radius:12px; border:1px solid #E6E6EC; background:#fff; display:grid; place-items:center; cursor:pointer; color:#5E5E6E;">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg>
+          <span style="position:absolute; top:8px; right:9px; width:8px; height:8px; border-radius:50%; background:#E05656; border:2px solid #fff;"></span>
+        </button>
+        <button style="width:42px; height:42px; border-radius:12px; border:1px solid #E6E6EC; background:#fff; display:grid; place-items:center; cursor:pointer; color:#5E5E6E;">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        </button>
+        <div style="display:flex; align-items:center; gap:10px; padding-left:6px;">
+          <img src="https://i.pravatar.cc/64?img=15" style="width:38px; height:38px; border-radius:11px; object-fit:cover;" />
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <div style="padding:28px 32px 48px; flex:1;">
+
+      <!-- ============ DASHBOARD HOME ============ -->
+      <sc-if value="{{ showDashboard }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <!-- Welcome row -->
+        <div style="display:grid; grid-template-columns:1fr 340px; gap:20px; margin-bottom:24px;">
+          <div style="display:flex; flex-direction:column; justify-content:center;">
+            <h1 style="font-size:30px; font-weight:800; letter-spacing:-0.02em; margin:0 0 6px;">Good morning, Jordan 👋</h1>
+            <p style="font-size:15.5px; color:#7C7C8E; margin:0;">You have <span style="color:#1A0206; font-weight:700;">3 new AI-matched jobs</span> and 1 application to finish.</p>
+          </div>
+          <div style="background:#fff; border:1px solid #ECECF1; border-radius:18px; padding:18px 20px; display:flex; align-items:center; gap:16px; box-shadow:0 1px 3px rgba(33,34,45,0.05);">
+            <div style="width:62px; height:62px; border-radius:50%; background:conic-gradient(var(--brand,#D40A2E) 78%, #EFEFF3 0); display:grid; place-items:center; flex-shrink:0;">
+              <div style="width:48px; height:48px; border-radius:50%; background:#fff; display:grid; place-items:center; font-size:15px; font-weight:800; color:#1A0206;">78%</div>
+            </div>
+            <div style="line-height:1.35; flex:1;">
+              <div style="font-size:14px; font-weight:700;">Profile completion</div>
+              <div style="font-size:12.5px; color:#9E9EB0; margin-bottom:8px;">Add certifications to reach 100%</div>
+              <a href="Auth.dc.html#complete" style="font-size:13px; font-weight:700; color:#1A0206;">Complete profile →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Continue application -->
+        <div style="background:linear-gradient(120deg,#FCEFF1,#EFF1E8); border:1px solid #F3C9D0; border-radius:18px; padding:20px 24px; display:flex; align-items:center; gap:20px; margin-bottom:24px;">
+          <div style="width:48px; height:48px; border-radius:14px; background:linear-gradient(135deg,#A00823,#D40A2E); display:grid; place-items:center; flex-shrink:0;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+          <div style="flex:1;">
+            <div style="font-size:16px; font-weight:800; margin-bottom:3px;">Resume your application - Senior Product Designer @ Aperture Labs</div>
+            <div style="font-size:13.5px; color:#5E5E6E;">Your AI video interview is pending. Applications can't be submitted until it's complete.</div>
+          </div>
+          <button onClick="{{ goApply }}" style="height:44px; padding:0 22px; border-radius:12px; border:none; background:var(--brand,#D40A2E); color:#fff; font:700 14px Inter; cursor:pointer; white-space:nowrap;">Continue application</button>
+        </div>
+
+        <!-- AI recommendations -->
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span style="width:30px; height:30px; border-radius:9px; background:linear-gradient(135deg,#A00823,#D40A2E); display:grid; place-items:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M12 3l1.6 4.8L18 9.4l-4.4 1.6L12 16l-1.6-4.9L6 9.4l4.4-1.6z"/></svg></span>
+            <h2 style="font-size:20px; font-weight:800; letter-spacing:-0.01em; margin:0;">AI recommended for you</h2>
+          </div>
+          <a href="#" onClick="{{ goBrowse }}" style="font-size:13.5px; font-weight:700; color:#1A0206; cursor:pointer;">Browse all jobs →</a>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-bottom:28px;">
+          <sc-for list="{{ recommendations }}" as="j" hint-placeholder-count="3">
+            <div style="background:#fff; border:1px solid #ECECF1; border-radius:var(--card-radius,16px); padding:20px; box-shadow:0 1px 3px rgba(33,34,45,0.05); display:flex; flex-direction:column;">
+              <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:14px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <span style="width:38px; height:38px; border-radius:11px; background:{{ j.logoBg }}; color:{{ j.logoFg }}; display:grid; place-items:center; font-size:15px; font-weight:800;">{{ j.mono }}</span>
+                  <div style="line-height:1.3;"><div style="font-size:14.5px; font-weight:700;">{{ j.company }}</div><div style="font-size:12px; color:#9E9EB0;">{{ j.date }}</div></div>
+                </div>
+                <span style="display:inline-flex; align-items:center; gap:4px; padding:4px 9px; border-radius:999px; background:linear-gradient(120deg,#A00823,#D40A2E); color:#fff; font-size:11.5px; font-weight:800;">{{ j.match }}%</span>
+              </div>
+              <div style="font-size:17px; font-weight:800; letter-spacing:-0.01em; margin-bottom:12px; line-height:1.25;">{{ j.title }}</div>
+              <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px;">
+                <sc-for list="{{ j.skills }}" as="sk" hint-placeholder-count="3"><span style="padding:4px 10px; border-radius:8px; background:#FCEFF1; color:#1A0206; font-size:11.5px; font-weight:600;">{{ sk }}</span></sc-for>
+              </div>
+              <div style="display:flex; align-items:center; gap:14px; font-size:12.5px; color:#7C7C8E; margin-bottom:16px;">
+                <span style="display:inline-flex; align-items:center; gap:5px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>{{ j.type }}</span>
+                <span style="display:inline-flex; align-items:center; gap:5px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>{{ j.loc }}</span>
+              </div>
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-top:auto; padding-top:14px; border-top:1px solid #F2F2F6;">
+                <span style="font-size:16px; font-weight:800;">{{ j.pay }}</span>
+                <div style="display:flex; gap:8px;">
+                  <button aria-label="Save" style="width:38px; height:38px; border-radius:10px; border:1px solid #E6E6EC; background:#fff; display:grid; place-items:center; cursor:pointer; color:#7C7C8E;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h12v16l-6-4-6 4z"/></svg></button>
+                  <button onClick="{{ goJobDetail }}" style="height:38px; padding:0 14px; border-radius:10px; border:1px solid #E6E6EC; background:#fff; color:#33000A; font:700 13px Inter; cursor:pointer;">Details</button>
+                  <button onClick="{{ goApply }}" style="height:38px; padding:0 16px; border-radius:10px; border:none; background:var(--brand,#D40A2E); color:#fff; font:700 13px Inter; cursor:pointer;">Apply now</button>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <!-- Lower grid -->
+        <div style="display:grid; grid-template-columns:1.5fr 1fr; gap:20px;">
+          <!-- Recent applications -->
+          <div style="background:#fff; border:1px solid #ECECF1; border-radius:18px; padding:22px; box-shadow:0 1px 3px rgba(33,34,45,0.05);">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+              <h3 style="font-size:16px; font-weight:800; margin:0;">Recent applications</h3>
+              <a href="#" onClick="{{ goApps }}" style="font-size:13px; font-weight:700; color:#1A0206; cursor:pointer;">View all</a>
+            </div>
+            <div style="display:flex; flex-direction:column;">
+              <sc-for list="{{ recentApps }}" as="a" hint-placeholder-count="4">
+                <div style="display:flex; align-items:center; gap:14px; padding:12px 0; border-bottom:1px solid #FFFFFF;">
+                  <span style="width:36px; height:36px; border-radius:10px; background:{{ a.logoBg }}; color:{{ a.logoFg }}; display:grid; place-items:center; font-size:14px; font-weight:800; flex-shrink:0;">{{ a.mono }}</span>
+                  <div style="flex:1; min-width:0; line-height:1.35;"><div style="font-size:14px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ a.title }}</div><div style="font-size:12px; color:#9E9EB0;">{{ a.company }} · {{ a.date }}</div></div>
+                  <sc-if value="{{ a.hasScore }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px; font-weight:800; color:#157A50;">{{ a.score }}</span></sc-if>
+                  <span style="padding:4px 11px; border-radius:999px; background:{{ a.statusBg }}; color:{{ a.statusFg }}; font-size:11.5px; font-weight:700; white-space:nowrap;">{{ a.status }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <!-- Right column: strength + activity -->
+          <div style="display:flex; flex-direction:column; gap:20px;">
+            <div style="background:#fff; border:1px solid #ECECF1; border-radius:18px; padding:22px; box-shadow:0 1px 3px rgba(33,34,45,0.05);">
+              <h3 style="font-size:16px; font-weight:800; margin:0 0 16px;">Profile strength</h3>
+              <div style="display:flex; flex-direction:column; gap:12px;">
+                <sc-for list="{{ strength }}" as="s" hint-placeholder-count="4">
+                  <div style="display:flex; align-items:center; gap:11px;">
+                    <span style="width:22px; height:22px; border-radius:7px; background:{{ s.iconBg }}; display:grid; place-items:center; flex-shrink:0;">{{ s.icon }}</span>
+                    <span style="flex:1; font-size:13.5px; font-weight:500; color:{{ s.textColor }};">{{ s.label }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="background:#fff; border:1px solid #ECECF1; border-radius:18px; padding:22px; box-shadow:0 1px 3px rgba(33,34,45,0.05);">
+              <h3 style="font-size:16px; font-weight:800; margin:0 0 16px;">Recent activity</h3>
+              <div style="display:flex; flex-direction:column;">
+                <sc-for list="{{ activity }}" as="ac" hint-placeholder-count="4">
+                  <div style="display:flex; gap:12px; padding-bottom:16px;">
+                    <div style="display:flex; flex-direction:column; align-items:center;"><span style="width:9px; height:9px; border-radius:50%; background:{{ ac.dot }}; margin-top:4px;"></span><span style="width:2px; flex:1; background:#F0F0F4; margin-top:4px;"></span></div>
+                    <div style="line-height:1.4; padding-bottom:2px;"><div style="font-size:13.5px; font-weight:600; color:#33000A;">{{ ac.text }}</div><div style="font-size:11.5px; color:#9E9EB0;">{{ ac.time }}</div></div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- Other views injected below -->
+      <sc-if value="{{ showBrowse }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <h1 style="font-size:28px; font-weight:800; letter-spacing:-0.02em; margin:0 0 4px;">Browse jobs</h1>
+        <p style="font-size:15px; color:#7C7C8E; margin:0 0 24px;">Ranked by how well they match your profile.</p>
+        <!-- Search row -->
+        <div style="display:flex; gap:10px; margin-bottom:24px;">
+          <div style="position:relative; flex:1;">
+            <span style="position:absolute; left:14px; top:50%; transform:translateY(-50%); color:#9E9EB0; display:flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></span>
+            <input type="text" placeholder="Job title, keyword or skill" style="width:100%; height:46px; border:1px solid #E6E6EC; border-radius:12px; background:#fff; padding:0 14px 0 42px; font:400 15px Inter; outline:none;" style-focus="border-color:#D40A2E; box-shadow:0 0 0 4px rgba(212,10,46,0.15);" />
+          </div>
+          <input type="text" placeholder="Location" style="width:200px; height:46px; border:1px solid #E6E6EC; border-radius:12px; background:#fff; padding:0 14px; font:400 15px Inter; outline:none;" />
+          <button style="height:46px; padding:0 24px; border-radius:12px; border:none; background:var(--brand,#D40A2E); color:#fff; font:700 14px Inter; cursor:pointer;">Search</button>
+        </div>
+        <div style="display:grid; grid-template-columns:240px 1fr; gap:24px; align-items:start;">
+          <!-- Filters -->
+          <aside style="background:#fff; border:1px solid #ECECF1; border-radius:18px; padding:22px; box-shadow:0 1px 3px rgba(33,34,45,0.05); position:sticky; top:88px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;"><span style="font-size:15px; font-weight:800;">Filters</span><a href="#" style="font-size:12.5px; font-weight:600; color:#9E9EB0;">Clear</a></div>
+            <div style="display:flex; flex-direction:column; gap:22px;">
+              <sc-for list="{{ filters }}" as="f" hint-placeholder-count="3">
+                <div>
+                  <div style="font-size:12px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:#9E9EB0; margin-bottom:12px;">{{ f.group }}</div>
+                  <div style="display:flex; flex-direction:column; gap:11px;">
+                    <sc-for list="{{ f.opts }}" as="o" hint-placeholder-count="3">
+                      <div style="display:flex; align-items:center; gap:10px; cursor:pointer;">
+                        <span style="width:20px; height:20px; border-radius:6px; background:{{ o.box }}; border:1.5px solid {{ o.border }}; display:grid; place-items:center; color:#fff; flex-shrink:0;">{{ o.check }}</span>
+                        <span style="font-size:13.5px; color:#33000A;">{{ o.label }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-for>
+              <div>
+                <div style="font-size:12px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:#9E9EB0; margin-bottom:12px;">Salary range</div>
+                <input type="range" min="0" max="100" value="60" style="width:100%; accent-color:#D40A2E;" />
+                <div style="display:flex; justify-content:space-between; font-size:12px; color:#7C7C8E; margin-top:4px;"><span>$60k</span><span>$250k+</span></div>
+              </div>
+            </div>
+          </aside>
+          <!-- Results -->
+          <div>
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+              <span style="font-size:14px; font-weight:600; color:#5E5E6E;"><b style="color:#1A0206;">1,240</b> jobs found</span>
+              <div style="display:flex; align-items:center; gap:8px; font-size:13.5px; color:#7C7C8E;">Sort by <select style="height:36px; border:1px solid #E6E6EC; border-radius:9px; background:#fff; padding:0 10px; font:600 13px Inter; color:#33000A; outline:none; cursor:pointer;"><option>Best match</option><option>Newest</option><option>Salary</option></select></div>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:16px;">
+              <sc-for list="{{ browseJobs }}" as="j" hint-placeholder-count="6">
+                <div style="background:#fff; border:1px solid #ECECF1; border-radius:var(--card-radius,16px); padding:20px; box-shadow:0 1px 3px rgba(33,34,45,0.05); display:flex; flex-direction:column;">
+                  <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:12px;">
+                    <div style="display:flex; align-items:center; gap:11px;">
+                      <span style="width:40px; height:40px; border-radius:11px; background:{{ j.logoBg }}; color:{{ j.logoFg }}; display:grid; place-items:center; font-size:16px; font-weight:800;">{{ j.mono }}</span>
+                      <div style="line-height:1.3;"><div style="font-size:16px; font-weight:800;">{{ j.title }}</div><div style="font-size:12.5px; color:#9E9EB0;">{{ j.company }} · {{ j.loc }}</div></div>
+                    </div>
+                    <span style="display:inline-flex; align-items:center; gap:4px; padding:4px 9px; border-radius:999px; background:linear-gradient(120deg,#A00823,#D40A2E); color:#fff; font-size:11.5px; font-weight:800;">{{ j.match }}%</span>
+                  </div>
+                  <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px;">
+                    <span style="padding:4px 10px; border-radius:8px; background:#FFFFFF; color:#5E5E6E; font-size:11.5px; font-weight:600;">{{ j.type }}</span>
+                    <span style="padding:4px 10px; border-radius:8px; background:#FFFFFF; color:#5E5E6E; font-size:11.5px; font-weight:600;">{{ j.exp }}</span>
+                    <sc-for list="{{ j.skills }}" as="sk" hint-placeholder-count="2"><span style="padding:4px 10px; border-radius:8px; background:#FCEFF1; color:#1A0206; font-size:11.5px; font-weight:600;">{{ sk }}</span></sc-for>
+                  </div>
+                  <div style="display:flex; align-items:center; justify-content:space-between; margin-top:auto; padding-top:14px; border-top:1px solid #F2F2F6;">
+                    <span style="font-size:16px; font-weight:800;">{{ j.pay }}<span style="font-size:12px; color:#9E9EB0; font-weight:500;">/yr</span></span>
+                    <div style="display:flex; gap:8px;">
+                      <button aria-label="Save" style="width:38px; height:38px; border-radius:10px; border:1px solid #E6E6EC; background:#fff; display:grid; place-items:center; cursor:pointer; color:#7C7C8E;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h12v16l-6-4-6 4z"/></svg></button>
+                      <button onClick="{{ goJobDetail }}" style="height:38px; padding:0 14px; border-radius:10px; border:1px solid #E6E6EC; background:#fff; color:#33000A; font:700 13px Inter; cursor:pointer;">Details</button>
+                      <button onClick="{{ goApply }}" style="height:38px; padding:0 16px; border-radius:10px; border:none; background:var(--brand,#D40A2E); color:#fff; font:700 13px Inter; cursor:pointer;">Apply</button>
+                    </div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+      <sc-if value="{{ showSaved }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; gap:16px;">
+          <div><h1 style="font-size:28px; font-weight:800; letter-spacing:-0.02em; margin:0 0 4px;">Saved jobs</h1><p style="font-size:15px; color:#7C7C8E; margin:0;">{{ savedCount }} roles saved for later.</p></div>
+          <div style="position:relative;"><span style="position:absolute; left:13px; top:50%; transform:translateY(-50%); color:#9E9EB0; display:flex;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></span><input type="text" placeholder="Search saved" style="width:220px; height:42px; border:1px solid #E6E6EC; border-radius:12px; background:#fff; padding:0 14px 0 40px; font:400 14px Inter; outline:none;" /></div>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:18px;">
+          <sc-for list="{{ savedJobs }}" as="j" hint-placeholder-count="3">
+            <div style="background:#fff; border:1px solid #ECECF1; border-radius:var(--card-radius,16px); padding:20px; box-shadow:0 1px 3px rgba(33,34,45,0.05); display:flex; flex-direction:column;">
+              <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:12px;">
+                <div style="display:flex; align-items:center; gap:11px;">
+                  <span style="width:40px; height:40px; border-radius:11px; background:{{ j.logoBg }}; color:{{ j.logoFg }}; display:grid; place-items:center; font-size:16px; font-weight:800;">{{ j.mono }}</span>
+                  <div style="line-height:1.3;"><div style="font-size:15.5px; font-weight:800;">{{ j.title }}</div><div style="font-size:12px; color:#9E9EB0;">{{ j.company }} · {{ j.loc }}</div></div>
+                </div>
+                <button aria-label="Remove" style="width:32px; height:32px; border-radius:9px; border:1px solid #F2E3E3; background:#FDF4F4; display:grid; place-items:center; cursor:pointer; color:#C64545;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+              </div>
+              <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px;">
+                <span style="padding:4px 10px; border-radius:8px; background:#FFFFFF; color:#5E5E6E; font-size:11.5px; font-weight:600;">{{ j.type }}</span>
+                <sc-for list="{{ j.skills }}" as="sk" hint-placeholder-count="2"><span style="padding:4px 10px; border-radius:8px; background:#FCEFF1; color:#1A0206; font-size:11.5px; font-weight:600;">{{ sk }}</span></sc-for>
+              </div>
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-top:auto; padding-top:14px; border-top:1px solid #F2F2F6;">
+                <span style="font-size:16px; font-weight:800;">{{ j.pay }}<span style="font-size:12px; color:#9E9EB0; font-weight:500;">/yr</span></span>
+                <div style="display:flex; gap:8px;">
+                  <button onClick="{{ goJobDetail }}" style="height:38px; padding:0 14px; border-radius:10px; border:1px solid #E6E6EC; background:#fff; color:#33000A; font:700 13px Inter; cursor:pointer;">Details</button>
+                  <button onClick="{{ goApply }}" style="height:38px; padding:0 18px; border-radius:10px; border:none; background:var(--brand,#D40A2E); color:#fff; font:700 13px Inter; cursor:pointer;">Apply now</button>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+      <sc-if value="{{ showApps }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <h1 style="font-size:28px; font-weight:800; letter-spacing:-0.02em; margin:0 0 4px;">My applications</h1>
+        <p style="font-size:15px; color:#7C7C8E; margin:0 0 24px;">Track every application and its AI interview result.</p>
+        <div style="background:#fff; border:1px solid #ECECF1; border-radius:18px; box-shadow:0 1px 3px rgba(33,34,45,0.05); overflow:hidden;">
+          <div style="display:grid; grid-template-columns:2.4fr 1.2fr 1.3fr 1fr 0.9fr 1.1fr; gap:12px; padding:14px 22px; background:#FFFFFF; border-bottom:1px solid #ECECF1; font-size:11.5px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; color:#9E9EB0;">
+            <span>Role</span><span>Applied</span><span>Status</span><span>Interview</span><span>AI score</span><span>Review</span>
+          </div>
+          <sc-for list="{{ applications }}" as="a" hint-placeholder-count="5">
+            <div style="display:grid; grid-template-columns:2.4fr 1.2fr 1.3fr 1fr 0.9fr 1.1fr; gap:12px; padding:16px 22px; border-bottom:1px solid #FFFFFF; align-items:center;">
+              <div style="display:flex; align-items:center; gap:12px; min-width:0;">
+                <span style="width:38px; height:38px; border-radius:10px; background:#FCEFF1; color:#1A0206; display:grid; place-items:center; font-size:14px; font-weight:800; flex-shrink:0;">{{ a.mono }}</span>
+                <div style="line-height:1.3; min-width:0;"><div style="font-size:14px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ a.title }}</div><div style="font-size:12px; color:#9E9EB0;">{{ a.company }}</div></div>
+              </div>
+              <span style="font-size:13px; color:#5E5E6E;">{{ a.date }}</span>
+              <span><span style="padding:4px 11px; border-radius:999px; background:{{ a.statusBg }}; color:{{ a.statusFg }}; font-size:11.5px; font-weight:700;">{{ a.status }}</span></span>
+              <span style="font-size:13px; color:#5E5E6E;">{{ a.interview }}</span>
+              <span style="font-size:14px; font-weight:800; color:#33000A;">{{ a.score }}</span>
+              <span style="display:flex; align-items:center; justify-content:space-between; gap:8px;"><span style="font-size:12.5px; color:#7C7C8E;">{{ a.review }}</span><button onClick="{{ goDetails }}" aria-label="View" style="width:30px; height:30px; border-radius:8px; border:1px solid #E6E6EC; background:#fff; display:grid; place-items:center; cursor:pointer; color:#7C7C8E;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+      <sc-if value="{{ showInterviews }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <h1 style="font-size:28px; font-weight:800; letter-spacing:-0.02em; margin:0 0 4px;">AI interviews</h1>
+        <p style="font-size:15px; color:#7C7C8E; margin:0 0 24px;">Your completed video interviews and results. Each interview can only be taken once.</p>
+        <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:18px;">
+          <sc-for list="{{ interviews }}" as="i" hint-placeholder-count="4">
+            <div style="background:#fff; border:1px solid #ECECF1; border-radius:18px; padding:22px; box-shadow:0 1px 3px rgba(33,34,45,0.05);">
+              <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:18px;">
+                <div style="display:flex; align-items:center; gap:12px;">
+                  <span style="width:44px; height:44px; border-radius:12px; background:#FCEFF1; color:#1A0206; display:grid; place-items:center; font-size:16px; font-weight:800;">{{ i.mono }}</span>
+                  <div style="line-height:1.3;"><div style="font-size:16px; font-weight:800;">{{ i.title }}</div><div style="font-size:12.5px; color:#9E9EB0;">{{ i.company }} · {{ i.date }}</div></div>
+                </div>
+                <div style="width:54px; height:54px; border-radius:50%; background:conic-gradient({{ i.ringColor }} {{ i.score }}%, #EFEFF3 0); display:grid; place-items:center; flex-shrink:0;"><div style="width:42px; height:42px; border-radius:50%; background:#fff; display:grid; place-items:center; font-size:13px; font-weight:800; color:{{ i.scoreColor }};">{{ i.score }}</div></div>
+              </div>
+              <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:18px;">
+                <div style="background:#FFFFFF; border-radius:11px; padding:11px 13px;"><div style="font-size:11px; color:#9E9EB0; font-weight:600;">Accuracy</div><div style="font-size:16px; font-weight:800;">{{ i.acc }}</div></div>
+                <div style="background:#FFFFFF; border-radius:11px; padding:11px 13px;"><div style="font-size:11px; color:#9E9EB0; font-weight:600;">Questions</div><div style="font-size:16px; font-weight:800;">{{ i.q }}</div></div>
+                <div style="background:#FFFFFF; border-radius:11px; padding:11px 13px;"><div style="font-size:11px; color:#9E9EB0; font-weight:600;">Duration</div><div style="font-size:16px; font-weight:800;">{{ i.dur }}</div></div>
+              </div>
+              <div style="display:flex; align-items:center; justify-content:space-between;">
+                <div style="display:flex; gap:14px; font-size:12px; color:#7C7C8E;">
+                  <span style="display:inline-flex; align-items:center; gap:5px;"><span style="width:7px; height:7px; border-radius:50%; background:#22A06B;"></span>Recording</span>
+                  <span style="display:inline-flex; align-items:center; gap:5px;"><span style="width:7px; height:7px; border-radius:50%; background:{{ i.transcriptDot }};"></span>Transcript</span>
+                </div>
+                <button onClick="{{ goReport }}" style="height:38px; padding:0 16px; border-radius:10px; border:none; background:var(--brand,#D40A2E); color:#fff; font:700 13px Inter; cursor:pointer;">View report</button>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+      <sc-if value="{{ showNotifs }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:760px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:24px;">
+          <div><h1 style="font-size:28px; font-weight:800; letter-spacing:-0.02em; margin:0 0 4px;">Notifications</h1><p style="font-size:15px; color:#7C7C8E; margin:0;">3 unread</p></div>
+          <div style="display:flex; gap:10px;">
+            <button style="height:40px; padding:0 16px; border-radius:11px; border:1px solid #E6E6EC; background:#fff; font:600 13.5px Inter; color:#33000A; cursor:pointer;">Mark all read</button>
+            <div style="position:relative;"><select style="height:40px; border:1px solid #E6E6EC; border-radius:11px; background:#fff; padding:0 32px 0 14px; font:600 13.5px Inter; color:#33000A; outline:none; appearance:none; cursor:pointer;"><option>All</option><option>Unread</option><option>Jobs</option><option>Interviews</option></select><span style="position:absolute; right:12px; top:50%; transform:translateY(-50%); color:#9E9EB0; pointer-events:none; display:flex;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span></div>
+          </div>
+        </div>
+        <div style="background:#fff; border:1px solid #ECECF1; border-radius:18px; box-shadow:0 1px 3px rgba(33,34,45,0.05); overflow:hidden;">
+          <sc-for list="{{ notifications }}" as="n" hint-placeholder-count="5">
+            <div style="display:flex; align-items:flex-start; gap:14px; padding:16px 20px; border-bottom:1px solid #FFFFFF; background:{{ n.rowBg }};">
+              <span style="width:38px; height:38px; border-radius:11px; background:{{ n.iconBg }}; display:grid; place-items:center; flex-shrink:0;">{{ n.icon }}</span>
+              <div style="flex:1; line-height:1.4;"><div style="font-size:14px; font-weight:700;">{{ n.text }}</div><div style="font-size:13px; color:#9E9EB0;">{{ n.sub }}</div></div>
+              <div style="display:flex; align-items:center; gap:12px; flex-shrink:0;">
+                <span style="font-size:12px; color:#9E9EB0; white-space:nowrap;">{{ n.time }}</span>
+                <sc-if value="{{ n.unread }}" hint-placeholder-val="{{ false }}"><span style="width:8px; height:8px; border-radius:50%; background:var(--brand,#D40A2E);"></span></sc-if>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+      <sc-if value="{{ showPlaceholder }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:60vh; text-align:center;">
+          <div style="width:76px; height:76px; border-radius:22px; background:#FCEFF1; display:grid; place-items:center; margin-bottom:22px;"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#A00823" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg></div>
+          <h2 style="font-size:24px; font-weight:800; margin:0 0 8px;">{{ placeholderTitle }}</h2>
+          <p style="font-size:15px; color:#7C7C8E; max-width:400px; margin:0;">This screen is designed and ready to build out next - {{ placeholderTitle }} will follow the same patterns you see across the dashboard.</p>
+          <button onClick="{{ goDashboard }}" style="margin-top:24px; height:44px; padding:0 22px; border-radius:12px; border:none; background:var(--brand,#D40A2E); color:#fff; font:700 14px Inter; cursor:pointer;">Back to dashboard</button>
+        </div>
+      </sc-if>
+
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;accentColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#D40A2E&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Theme&quot;, &quot;options&quot;: [&quot;#D40A2E&quot;, &quot;#4680EC&quot;, &quot;#22A06B&quot;, &quot;#1A0206&quot;] },
+  &quot;cornerStyle&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;Rounded&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;options&quot;: [&quot;Rounded&quot;, &quot;Sharp&quot;], &quot;section&quot;: &quot;Theme&quot; }
+}">
+class Component extends DCLogic {
+  state = { view: 'dashboard' };
+  go(v) { this.setState({ view: v }); }
+
+  renderVals() {
+    const R = React.createElement;
+    const svg = (paths, o = {}) => R('svg', { width: o.w || 19, height: o.w || 19, viewBox: '0 0 24 24', fill: o.fill || 'none', stroke: o.fill ? 'none' : 'currentColor', strokeWidth: o.sw || 2, strokeLinecap: 'round', strokeLinejoin: 'round' }, paths.map((d, i) => R('path', { key: i, d })));
+    const v = this.state.view;
+    const brand = this.props.accentColor ?? '#D40A2E';
+
+    const navBase = [
+      { id: 'dashboard', label: 'Dashboard', icon: svg(['M3 13h8V3H3zM13 21h8v-8h-8zM13 3v6h8V3zM3 21h8v-6H3z']) },
+      { id: 'browse', label: 'Browse Jobs', icon: svg(['M11 3a8 8 0 100 16 8 8 0 000-16z', 'M21 21l-4.3-4.3']) },
+      { id: 'saved', label: 'Saved Jobs', icon: svg(['M6 4h12v16l-6-4-6 4z']) },
+      { id: 'apps', label: 'My Applications', icon: svg(['M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z', 'M14 2v6h6', 'M9 13h6M9 17h4']) },
+      { id: 'interviews', label: 'AI Interviews', icon: svg(['M23 7l-7 5 7 5V7z', 'M1 5h15v14H1z']) },
+      { id: 'profile', label: 'Profile', icon: svg(['M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2', 'M12 3a4 4 0 100 8 4 4 0 000-8z']) }
+    ];
+    const nav = navBase.map(n => ({
+      ...n,
+      active: n.id === v,
+      onClick: () => this.go(n.id),
+      bg: n.id === v ? brand : 'transparent',
+      color: n.id === v ? '#fff' : '#5E5E6E',
+      shadow: n.id === v ? '0 6px 16px rgba(212,10,46,0.32)' : 'none'
+    }));
+
+    const chk = svg(['M20 6L9 17l-5-5'], { w: 13, sw: 3 });
+    const plus = svg(['M12 5v14M5 12h14'], { w: 13, sw: 2.5 });
+    const placeholders = { messages: 'Messages / Support', profile: 'My Profile', settings: 'Settings', details: 'Job Details', report: 'AI Interview Report' };
+
+    return {
+      brand,
+      cardRadius: (this.props.cornerStyle === 'Sharp') ? '8px' : '16px',
+      savedCount: 3,
+      nav,
+      goDashboard: () => this.go('dashboard'),
+      goBrowse: () => this.go('browse'),
+      goApps: () => this.go('apps'),
+      goNotifs: () => this.go('notifs'),
+      goDetails: () => { window.location.href = 'Job-Detail.html'; },
+      goJobDetail: () => { window.location.href = 'Job-Detail.html'; },
+      goApply: () => { window.location.href = 'TalentFlow-AI-Interview.html'; },
+      goReport: () => this.go('report'),
+      goLogout: () => { window.location.href = 'Website%20-%20Home.dc.html'; },
+      showDashboard: v === 'dashboard',
+      showBrowse: v === 'browse',
+      showSaved: v === 'saved',
+      showApps: v === 'apps',
+      showInterviews: v === 'interviews',
+      showNotifs: v === 'notifs',
+      showPlaceholder: !!placeholders[v],
+      placeholderTitle: placeholders[v] || '',
+      recommendations: [
+        { mono: 'A', company: 'Aperture Labs', date: '2d ago', match: 96, title: 'Senior Product Designer', skills: ['Figma', 'Design Systems', 'Prototyping'], type: 'Full time', loc: 'Remote', pay: '$150k', logoBg: '#1A0206', logoFg: '#fff' },
+        { mono: 'N', company: 'Nova Health', date: '3d ago', match: 91, title: 'Frontend Engineer', skills: ['React', 'TypeScript', 'CSS'], type: 'Hybrid', loc: 'Austin, TX', pay: '$135k', logoBg: '#E9F7F0', logoFg: '#157A50' },
+        { mono: 'V', company: 'Vortex', date: '4d ago', match: 88, title: 'UX Researcher', skills: ['Research', 'Interviews', 'Synthesis'], type: 'Full time', loc: 'New York, NY', pay: '$120k', logoBg: '#FDF1E6', logoFg: '#B26A16' }
+      ],
+      recentApps: [
+        { mono: 'A', title: 'Senior Product Designer', company: 'Aperture Labs', date: 'Jun 28', status: 'Interview pending', statusBg: '#FBEEDD', statusFg: '#B26A16', hasScore: false, score: '' },
+        { mono: 'S', title: 'UX Designer', company: 'Samtiv', date: 'Jun 24', status: 'Shortlisted', statusBg: '#E6F6EF', statusFg: '#157A50', hasScore: true, score: '92' },
+        { mono: 'B', title: 'Product Designer', company: 'Boking', date: 'Jun 20', status: 'Under review', statusBg: '#E7F0FE', statusFg: '#2C5FBF', hasScore: true, score: '87' },
+        { mono: 'U', title: 'Design Lead', company: 'Unica', date: 'Jun 15', status: 'Rejected', statusBg: '#FBE7E7', statusFg: '#B23B3B', hasScore: true, score: '74' }
+      ],
+      strength: [
+        { label: 'Basic info added', icon: chk, iconBg: '#22A06B', textColor: '#9E9EB0' },
+        { label: 'Skills & experience added', icon: chk, iconBg: '#22A06B', textColor: '#9E9EB0' },
+        { label: 'Add certifications', icon: plus, iconBg: '#DBDBE5', textColor: '#33000A' },
+        { label: 'Add portfolio links', icon: plus, iconBg: '#DBDBE5', textColor: '#33000A' }
+      ],
+      activity: [
+        { text: 'Applied to Senior Product Designer', time: '2 days ago', dot: '#D40A2E' },
+        { text: 'Completed AI interview - UX Designer', time: '5 days ago', dot: '#22A06B' },
+        { text: 'Saved Motion Designer @ Unica', time: '1 week ago', dot: '#4680EC' },
+        { text: 'Updated skills on your profile', time: '1 week ago', dot: '#E8963A' }
+      ],
+      filters: [
+        { group: 'Job type', opts: [['Full time', true], ['Part time', false], ['Contract', false], ['Internship', false]] },
+        { group: 'Work mode', opts: [['Remote', true], ['Hybrid', true], ['On-site', false]] },
+        { group: 'Experience', opts: [['Junior', false], ['Mid-level', true], ['Senior', true]] }
+      ].map(f => ({ group: f.group, opts: f.opts.map(([label, on]) => ({ label, on, box: on ? brand : '#fff', border: on ? brand : '#C4C4D2', check: on ? chk : null })) })),
+      browseJobs: [
+        { mono: 'A', company: 'Aperture Labs', title: 'Senior Product Designer', match: 96, skills: ['Figma', 'Design Systems'], exp: 'Senior', pay: '$150k', type: 'Full time', loc: 'Remote', logoBg: '#1A0206', logoFg: '#fff' },
+        { mono: 'N', company: 'Nova Health', title: 'Frontend Engineer', match: 91, skills: ['React', 'TypeScript'], exp: 'Mid', pay: '$135k', type: 'Hybrid', loc: 'Austin, TX', logoBg: '#E9F7F0', logoFg: '#157A50' },
+        { mono: 'V', company: 'Vortex', title: 'UX Researcher', match: 88, skills: ['Research', 'Synthesis'], exp: 'Mid', pay: '$120k', type: 'Full time', loc: 'New York, NY', logoBg: '#FDF1E6', logoFg: '#B26A16' },
+        { mono: 'S', company: 'Samtiv', title: 'Product Marketing Lead', match: 84, skills: ['GTM', 'Content'], exp: 'Senior', pay: '$128k', type: 'On-site', loc: 'Chicago, IL', logoBg: '#EFF1E8', logoFg: '#2C5FBF' },
+        { mono: 'B', company: 'Boking', title: 'Data Analyst', match: 80, skills: ['SQL', 'Tableau'], exp: 'Junior', pay: '$88k', type: 'Full time', loc: 'Remote', logoBg: '#FCEEF4', logoFg: '#B23B6A' },
+        { mono: 'U', company: 'Unica', title: 'Motion Designer', match: 77, skills: ['After Effects', 'Lottie'], exp: 'Mid', pay: '$112k', type: 'Full time', loc: 'Remote', logoBg: '#FCEFF1', logoFg: '#1A0206' }
+      ],
+      savedJobs: [
+        { mono: 'U', company: 'Unica', title: 'Motion Designer', match: 77, skills: ['After Effects', 'Lottie'], pay: '$112k', type: 'Full time', loc: 'Remote', logoBg: '#FCEFF1', logoFg: '#1A0206' },
+        { mono: 'V', company: 'Vortex', title: 'UX Researcher', match: 88, skills: ['Research', 'Synthesis'], pay: '$120k', type: 'Full time', loc: 'New York, NY', logoBg: '#FDF1E6', logoFg: '#B26A16' },
+        { mono: 'N', company: 'Nova Health', title: 'Frontend Engineer', match: 91, skills: ['React', 'TypeScript'], pay: '$135k', type: 'Hybrid', loc: 'Austin, TX', logoBg: '#E9F7F0', logoFg: '#157A50' }
+      ],
+      applications: [
+        { mono: 'A', title: 'Senior Product Designer', company: 'Aperture Labs', date: 'Jun 28, 2026', status: 'Interview pending', statusBg: '#FBEEDD', statusFg: '#B26A16', interview: 'Pending', score: '-', review: 'Awaiting' },
+        { mono: 'S', title: 'UX Designer', company: 'Samtiv', date: 'Jun 24, 2026', status: 'Shortlisted', statusBg: '#E6F6EF', statusFg: '#157A50', interview: 'Completed', score: '92%', review: 'Passed' },
+        { mono: 'B', title: 'Product Designer', company: 'Boking', date: 'Jun 20, 2026', status: 'Under review', statusBg: '#E7F0FE', statusFg: '#2C5FBF', interview: 'Completed', score: '87%', review: 'In review' },
+        { mono: 'V', title: 'UX Researcher', company: 'Vortex', date: 'Jun 18, 2026', status: 'Under review', statusBg: '#E7F0FE', statusFg: '#2C5FBF', interview: 'Completed', score: '85%', review: 'In review' },
+        { mono: 'U', title: 'Design Lead', company: 'Unica', date: 'Jun 15, 2026', status: 'Rejected', statusBg: '#FBE7E7', statusFg: '#B23B3B', interview: 'Completed', score: '74%', review: 'Closed' }
+      ],
+      interviews: [
+        { mono: 'S', title: 'UX Designer', company: 'Samtiv', date: 'Jun 24, 2026', dur: '18 min', score: 92, acc: '94%', q: '6 / 6', transcript: true },
+        { mono: 'B', title: 'Product Designer', company: 'Boking', date: 'Jun 20, 2026', dur: '21 min', score: 87, acc: '89%', q: '6 / 6', transcript: true },
+        { mono: 'V', title: 'UX Researcher', company: 'Vortex', date: 'Jun 18, 2026', dur: '16 min', score: 85, acc: '86%', q: '5 / 6', transcript: false },
+        { mono: 'U', title: 'Design Lead', company: 'Unica', date: 'Jun 15, 2026', dur: '19 min', score: 74, acc: '78%', q: '6 / 6', transcript: true }
+      ].map(i => ({ ...i, ringColor: i.score >= 85 ? '#22A06B' : (i.score >= 75 ? '#E8963A' : '#E05656'), scoreColor: i.score >= 85 ? '#157A50' : (i.score >= 75 ? '#B26A16' : '#B23B3B'), transcriptDot: i.transcript ? '#22A06B' : '#DBDBE5' })),
+      notifications: [
+        { icon: svg(['M12 3l1.6 4.8L18 9.4l-4.4 1.6L12 16l-1.6-4.9L6 9.4l4.4-1.6z'], { fill: '#1A0206', w: 16 }), iconBg: '#FCEFF1', text: '3 new jobs match your profile', sub: 'Senior Product Designer and 2 more', time: '20m ago', unread: true },
+        { icon: svg(['M22 11.08V12a10 10 0 11-5.93-9.14', 'M22 4L12 14.01l-3-3'], { w: 16 }), iconBg: '#E6F6EF', text: 'You were shortlisted at Samtiv', sub: 'UX Designer · AI score 92%', time: '2h ago', unread: true },
+        { icon: svg(['M23 7l-7 5 7 5V7z', 'M1 5h15v14H1z'], { w: 16 }), iconBg: '#E7F0FE', text: 'Interview reminder - Aperture Labs', sub: 'Complete your AI interview to submit', time: '5h ago', unread: true },
+        { icon: svg(['M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2', 'M12 3a4 4 0 100 8 4 4 0 000-8z'], { w: 16 }), iconBg: '#FDF1E6', text: 'Add certifications to boost your matches', sub: 'Profile is 78% complete', time: '1d ago', unread: false },
+        { icon: svg(['M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9', 'M13.7 21a2 2 0 01-3.4 0'], { w: 16 }), iconBg: '#F2F2F6', text: 'New feature: AI interview practice mode', sub: 'Rehearse before the real thing', time: '2d ago', unread: false }
+      ].map(n => ({ ...n, rowBg: n.unread ? '#FFFFFF' : '#fff' }))
+    };
+  }
+}
+</script>
+</body>
+</html>
